@@ -1,0 +1,45 @@
+{
+  "name": "diegoclaw",
+  "version": "1.0.0",
+  "description": "DiegoClaw — Agente de IA pessoal local de Diego William, controlado via Telegram",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec \"ts-node src/index.ts\"",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "axios": "^1.13.6",
+    "chromadb": "^3.3.3",
+    "dotenv": "^16.6.1",
+    "grammy": "^1.26.0",
+    "langfuse": "^3.38.20",
+    "node-edge-tts": "^1.2.10",
+    "openai": "^4.104.0",
+    "pdf-parse": "^1.1.4",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/pdf-parse": "^1.1.4",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "ai",
+    "telegram",
+    "agent",
+    "local",
+    "typescript"
+  ],
+  "author": "Diego William",
+  "license": "MIT"
+}

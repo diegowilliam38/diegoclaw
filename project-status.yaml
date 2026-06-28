@@ -1,0 +1,79 @@
+project: diegoclaw
+status: development
+phase: rag-expert-mode
+tech_lead: Diego William
+environment: Antigravity
+version: "2.0"
+updated: "2026-05-13"
+
+stack:
+  runtime: Node.js 20+ / TypeScript
+  telegram: grammy
+  llm_primary: GPT-4o-mini (OpenAI)
+  llm_fallback: DeepSeek
+  vector_db: ChromaDB 1.5.0 (HTTP server + Python PersistentClient para ingestão)
+  memory: SQLite via libsql
+  ingestion: Python 3.13 + pypdf + text-embedding-3-small
+
+skills:
+  total: 8
+  active:
+    - ia-engineer        # 29 obras — Agentes, RAG, LLMs, MCP, Prompts
+    - data-engineer      # 10 obras — Spark, Delta Lake, ETL, Lakehouse
+    - software-engineer  # 6 obras  — Clean Code, DDD, TDD, Arquitetura
+    - automations        # 4 obras  — MCP, n8n, integrações
+    - diegoclaw-assistant # Fallback geral
+    - devops             # 4 obras  — Docker, K8s, FastAPI [NOVO v2.0]
+    - python-developer   # 4 obras  — Python avançado [NOVO v2.0]
+    - project-manager    # 4 obras  — PMBOK, gestão projetos IA [NOVO v2.0]
+
+rag:
+  mode: expert-mode          # Síntese consultiva — não copy-paste
+  strategy: rag-fusion       # Multi-query + deduplicação
+  query_expansion: 3         # Variações geradas por GPT-4o-mini
+  top_k: 8                   # Chunks finais após dedup
+  cross_domain: enabled      # SkillRouter v2 mescla personas quando necessário
+  knowledge_base:
+    total_books: 55
+    status: pending_ingestion  # Ingerir com: python ingest.py
+    db_path: ./chroma_db
+    collection: diegoclaw_knowledge
+
+decisions:
+  - id: ADR-001
+    title: ChromaDB como vector store local
+    file: docs/ADR/ADR-001-chromadb-vector-store.md
+    status: accepted
+
+  - id: ADR-002
+    title: RAG Expert Mode — síntese consultiva em vez de recuperação literal
+    file: docs/ADR/ADR-002-rag-expert-mode.md
+    status: accepted
+    date: "2026-05-13"
+
+sessions:
+  - date: "2026-05-13"
+    summary: >
+      Correção de conflito Error 409 (remoção de código legado Telegraf).
+      Implementação de RAG Expert Mode: BASE_SYSTEM_PROMPT reformulado,
+      injeção RAG como evidências de raciocínio (não copy-paste),
+      SkillRouter v2 com cross-domain, 8 skills com personas consultivas,
+      3 novas skills criadas (devops, python-developer, project-manager),
+      script de ingestão Python (ingest.py) com PersistentClient.
+      Type-check: zero erros. Status: pronto para ingestão dos 55 livros.
+
+next_steps:
+  - step: Ingerir 55 obras
+    command: "python ingest.py"
+    estimated_time: "30-90 minutos"
+    priority: high
+
+  - step: Inicializar servidor ChromaDB antes do bot
+    command: "start_rag_server.bat (Terminal 1)"
+    priority: high
+
+  - step: Testar Expert Mode com perguntas reais de cada domínio
+    priority: high
+
+  - step: Expandir skills conforme novas obras forem adicionadas
+    priority: medium

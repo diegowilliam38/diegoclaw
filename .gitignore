@@ -1,0 +1,39 @@
+# Environment & Secrets
+.env
+.env.local
+.env.production
+
+# Data (SQLite) — local only
+data/
+tmp/
+
+# Python & RAG (Security: Never push user PDFs or Vector DB)
+knowledge/
+chroma_db/
+__pycache__/
+venv/
+.venv/
+
+# Build output
+dist/
+
+# Node
+node_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Agent memory (runtime only)
+.agent/memory/
