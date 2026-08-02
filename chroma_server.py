@@ -13,19 +13,13 @@ import os
 CHROMA_PATH = os.path.join(os.path.dirname(__file__), "chroma_db")
 
 print("=" * 50)
-print("  DiegoClaw — ChromaDB Server")
-print(f"  Persistindo em: {CHROMA_PATH}")
-print(f"  Endereço: http://localhost:8000")
+print("  DiegoClaw -- ChromaDB Server")
+print("  Persistindo em ./chroma_db")
+print("  Endereco: http://localhost:8002")
 print("=" * 50)
 
-# Garantir que a pasta existe
-os.makedirs(CHROMA_PATH, exist_ok=True)
+import uvicorn
+from chromadb.app.fastapi import app
 
-# Iniciar servidor HTTP do ChromaDB com persistência
-chromadb.cli.cli.run_app(
-    path=CHROMA_PATH,
-    host="localhost",
-    port=8000,
-    log_path=None,
-    test=False,
-)
+if __name__ == "__main__":
+    uvicorn.run(app, host="localhost", port=8002)

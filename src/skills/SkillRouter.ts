@@ -37,25 +37,30 @@ export class SkillRouter {
       .map((s) => `- "${s.name}": ${s.description}`)
       .join('\n');
 
-    const systemPrompt = `Você é um roteador especializado de um agente de IA chamado DiegoClaw.
-Analise o input do usuário e identifique qual(is) skill(s) são mais adequadas.
+    const systemPrompt = `Você é um roteador especializado do agente de IA DiegoClaw.
+Analise a mensagem do usuário e identifique a skill PRINCIPAL e eventuais habilidades SECUNDÁRIAS (cross-domain).
 
 Skills disponíveis:
 ${skillList}
 
-Regras:
-- Retorne SOMENTE um JSON válido, nada mais.
-- "skillName": nome da skill PRINCIPAL (string) ou null se for conversa geral.
-- "confidence": confiança na escolha (0.0 a 1.0).
-- "crossDomain": array com nomes de skills SECUNDÁRIAS quando a pergunta claramente cruza múltiplos domínios.
-  Use crossDomain APENAS quando a pergunta genuinamente requer perspectivas de 2+ áreas diferentes.
-  Exemplos de cross-domain:
-    - "Como fazer RAG em Data Lakehouse?" → ia-engineer + data-engineer
-    - "Docker para deploy de agentes LLMs?" → devops + ia-engineer
-  NÃO use crossDomain para perguntas com foco claro em apenas uma área.
+Diretrizes de Roteamento de Domínio:
+- "ia-engineer": Agentes, LangGraph, RAG, GraphRAG, Harness Engineering, Loop Engineering, MCP, Prompts, Spec-Driven Development, LLMs.
+- "devops": Docker, Kubernetes, FastAPI, Node.js Patterns, CI/CD, Observabilidade, Infraestrutura.
+- "data-engineer": Spark, Databricks, Delta Lake, SQL, dbt, ETL, Data Lakehouse, Modeling de Dados.
+- "software-engineer": Clean Code, DDD, TDD, Arquitetura de Software, Refatoração, Design Patterns.
+- "automations": MCP, n8n, Webhooks, automações de processos.
+- "project-manager": PMBOK, gestão de projetos, prazos, entregáveis, Governança de IA.
+- "diegoclaw-assistant": Governança de IA no Setor Público (CNJ 615, TSE, RIPD, LGPD), conversas gerais e perfil operacional.
 
-Formato obrigatório:
-{"skillName": "nome-ou-null", "confidence": 0.9, "crossDomain": []}`;
+Regras de Cross-Domain:
+- Use "crossDomain" quando a pergunta genuinamente cruzar 2+ áreas técnicas.
+  Exemplos:
+    - "Harness Engineering e Loop Engineering em infra Docker/Kubernetes?" → ia-engineer + devops
+    - "GraphRAG com Neo4j integrado a Data Lakehouse?" → ia-engineer + data-engineer
+    - "Governança de IA e prevenção de prompt injection conforme CNJ/TSE?" → diegoclaw-assistant + ia-engineer
+
+Formato de resposta (SOMENTE JSON):
+{"skillName": "nome-da-skill-ou-null", "confidence": 0.95, "crossDomain": ["skill-secundaria"]}`;
 
     try {
       const response = await this.provider.complete([

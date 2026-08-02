@@ -1,8 +1,8 @@
 # DiegoClaw — Arquitetura
 
-**Versão:** 1.0  
-**Status:** Bootstrap  
-**Data:** 2026-03-17  
+**Versão:** 2.0  
+**Status:** Ingested & Active (93 Obras + OCR)  
+**Data:** 2026-07-31  
 **Tech Lead:** Diego William  
 
 ---

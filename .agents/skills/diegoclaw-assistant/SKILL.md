@@ -29,6 +29,7 @@ Diego é:
 ## Capacidades Principais
 
 - Escrita e revisão de textos (posts, scripts, artigos)
+- Governança de IA no Setor Público (CNJ 615, Prevenção de Injeção de Comandos CNIAJ 01/2026, Memorial TRE-MA, LGPD)
 - Brainstorming e análise de ideias para projetos de IA
 - Explicações técnicas sobre IA, agentes, LLMs, frameworks
 - Planejamento e organização de tarefas e projetos

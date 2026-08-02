@@ -39,7 +39,7 @@ export class ToolFactory {
       mcpServers.push({
         name: "n8n",
         command: "npx",
-        args: ["-y", "@n8n/mcp-server"],
+        args: ["-y", "mcp-server-n8n"],
         env: {
           N8N_API_URL: process.env.N8N_API_URL ?? "http://localhost:5678/api/v1",
           N8N_API_KEY: process.env.N8N_API_KEY ?? "",

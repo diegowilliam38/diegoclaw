@@ -36,6 +36,12 @@ try:
 except ImportError:
     USE_PDFMINER = False
 
+try:
+    import docx
+    USE_DOCX = True
+except ImportError:
+    USE_DOCX = False
+
 # Carregar .env manualmente (sem dependencia de python-dotenv)
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 if os.path.exists(dotenv_path):
@@ -51,7 +57,6 @@ KNOWLEDGE_DIR = os.path.join(os.path.dirname(__file__), "knowledge")
 COLLECTION_NAME = "diegoclaw_knowledge"
 BATCH_SIZE = 20
 
-# Topicos de rapida evolucao -- serao flagrados nos metadados
 FAST_EVOLVING_TOPICS = [
     "langchain", "langgraph", "crewai", "llm", "llms", "openai", "gpt",
     "kubernetes", "k8s", "docker", "fastapi", "react", "next.js",
@@ -60,7 +65,12 @@ FAST_EVOLVING_TOPICS = [
 ]
 
 openai_client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-chroma_client = HttpClient(host='localhost', port=8002)
+
+try:
+    chroma_client = HttpClient(host='localhost', port=8002)
+    chroma_client.heartbeat()
+except Exception:
+    chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 
 
 def is_fast_evolving(filename: str) -> bool:
@@ -82,15 +92,52 @@ def extract_text(filepath: str) -> str:
     if ext.endswith('.txt'):
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
             return f.read()
+    if ext.endswith('.docx'):
+        if USE_DOCX:
+            doc = docx.Document(filepath)
+            full_text = []
+            for para in doc.paragraphs:
+                if para.text.strip():
+                    full_text.append(para.text)
+            for table in doc.tables:
+                for row in table.rows:
+                    row_text = [cell.text.strip() for cell in row.cells if cell.text.strip()]
+                    if row_text:
+                        full_text.append(" | ".join(row_text))
+            return "\n".join(full_text)
+        raise RuntimeError("Nenhum parser DOCX disponivel. Instale: pip install python-docx")
     if ext.endswith('.pdf'):
+        text = ""
         if USE_PYPDF:
             from pypdf import PdfReader
             reader = PdfReader(filepath)
-            return "\n".join(page.extract_text() or "" for page in reader.pages)
-        if USE_PDFMINER:
-            return pdfminer_extract(filepath)
-        raise RuntimeError("Nenhum parser PDF disponivel. Instale: pip install pypdf")
-    return ""
+            text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        elif USE_PDFMINER:
+            text = pdfminer_extract(filepath)
+        
+        # Se o texto extraido for muito curto (PDF escaneado / imagens do Kindle), usar PyMuPDF + Tesseract OCR
+        if len(text.strip()) < 100:
+            try:
+                import fitz  # PyMuPDF
+                import pytesseract
+                from PIL import Image
+                import io
+
+                doc = fitz.open(filepath)
+                ocr_texts = []
+                for page_idx in range(len(doc)):
+                    page = doc[page_idx]
+                    pix = page.get_pixmap(dpi=150)
+                    img = Image.open(io.BytesIO(pix.tobytes("png")))
+                    page_text = pytesseract.image_to_string(img, lang='por+eng')
+                    if page_text.strip():
+                        ocr_texts.append(page_text.strip())
+                if ocr_texts:
+                    text = "\n".join(ocr_texts)
+            except Exception as e:
+                pass
+
+        return text
 
 
 MAX_CHUNK_CHARS = 6000  # ~1500 tokens — bem abaixo do limite de 8192 da API
@@ -146,14 +193,14 @@ def show_status(collection):
     if sources:
         print("|  Obras e data de ingestao:                       |")
         for src, dt in sorted(sources.items()):
-            name = src[:30]
-            line = f"  * {name} ({dt})"
+            safe_src = src.encode('ascii', 'replace').decode('ascii')[:30]
+            line = f"  * {safe_src} ({dt})"
             print(f"|  {line.ljust(48)}|")
     print("+--------------------------------------------------+\n")
 
 
 def ingest(force: bool = False):
-    print(f"\n[ChromaDB] Conectando ao Docker (localhost:8002) | DB_PATH: {CHROMA_PATH}")
+    print("\n[ChromaDB] Conectando ao banco | DB_PATH: ./chroma_db")
     collection = chroma_client.get_or_create_collection(name=COLLECTION_NAME)
 
     if force:
@@ -177,7 +224,7 @@ def ingest(force: bool = False):
 
     all_files = [
         f for f in os.listdir(KNOWLEDGE_DIR)
-        if (f.endswith('.pdf') or f.endswith('.txt')) and not f.startswith('GAPS')
+        if (f.endswith('.pdf') or f.endswith('.txt') or f.endswith('.docx')) and not f.startswith('GAPS')
     ]
     new_files = [f for f in all_files if f not in existing_sources]
 
@@ -196,7 +243,9 @@ def ingest(force: bool = False):
 
     for i, filename in enumerate(new_files):
         progress = f"[{i+1}/{len(new_files)}]"
-        print(f"\n{progress} Processando: {filename}")
+        # Remover caracteres nao-ascii no log para evitar crash no Windows stdout
+        safe_filename = filename.encode('ascii', 'replace').decode('ascii')
+        print(f"\n{progress} Processando: {safe_filename}")
         filepath = os.path.join(KNOWLEDGE_DIR, filename)
 
         # Detectar se e topico de rapida evolucao (Mecanismo 2)
@@ -221,10 +270,11 @@ def ingest(force: bool = False):
                     for k in range(len(batch_texts))
                 ]
                 # Metadados enriquecidos -- Mecanismo 2: ingestion_date + fast_evolving
+                doc_type = "note" if filename.endswith('.txt') else ("docx_document" if filename.endswith('.docx') else "technical_book")
                 batch_metas = [
                     {
                         "source": filename,
-                        "type": "note" if filename.endswith('.txt') else "technical_book",
+                        "type": doc_type,
                         "ingestion_date": today,
                         "fast_evolving": fast_evolving,
                     }
@@ -242,11 +292,12 @@ def ingest(force: bool = False):
                 print(f"\r    -> Progresso: {pct}% ({done}/{len(chunks)})", end="", flush=True)
 
             tag = " [fast-evolving]" if fast_evolving else ""
-            print(f"\n    [OK] Concluido: {filename}{tag}")
+            print(f"\n    [OK] Concluido: {safe_filename}{tag}")
             success += 1
 
         except Exception as e:
-            print(f"\n    [ERRO] {filename}: {e}")
+            safe_err = str(e).encode('ascii', 'replace').decode('ascii')
+            print(f"\n    [ERRO] {safe_filename}: {safe_err}")
             errors += 1
 
     print("\n" + "=" * 60)

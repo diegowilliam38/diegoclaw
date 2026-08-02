@@ -34,8 +34,10 @@ rag:
   top_k: 8                   # Chunks finais após dedup
   cross_domain: enabled      # SkillRouter v2 mescla personas quando necessário
   knowledge_base:
-    total_books: 55
-    status: pending_ingestion  # Ingerir com: python ingest.py
+    total_books: 93
+    total_chunks: 25545
+    fast_evolving_chunks: 7829
+    status: ingested           # Ingestão 100% concluída (OCR em PDFs de imagem incluso)
     db_path: ./chroma_db
     collection: diegoclaw_knowledge
 
@@ -50,6 +52,19 @@ decisions:
     file: docs/ADR/ADR-002-rag-expert-mode.md
     status: accepted
     date: "2026-05-13"
+
+  - id: ADR-005
+    title: Orquestração Cognitiva Expandida & Atualização de Personas (93 Obras)
+    file: docs/ADR/ADR-005-orquestracao-cognitiva-expandida.md
+    status: accepted
+    date: "2026-07-31"
+
+stories:
+  - id: STORY-006
+    title: Cognitive Orchestration Enhancement & Persona Enrichment
+    file: .agent/stories/006-cognitive-orchestration-enhancement-story.md
+    spec: .agent/stories/006-cognitive-orchestration-enhancement-spec.md
+    status: completed
 
 sessions:
   - date: "2026-05-13"

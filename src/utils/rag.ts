@@ -8,7 +8,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const COLLECTION_NAME = 'diegoclaw_knowledge';
 const CHROMA_HOST = process.env.CHROMA_HOST ?? 'localhost';
-const CHROMA_PORT = parseInt(process.env.CHROMA_PORT ?? '8000', 10);
+const CHROMA_PORT = parseInt(process.env.CHROMA_PORT ?? '8002', 10);
 
 /**
  * Nível de cobertura RAG — determina como o AgentController injeta o contexto.
