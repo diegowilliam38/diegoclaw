@@ -59,6 +59,12 @@ decisions:
     status: accepted
     date: "2026-07-31"
 
+  - id: ADR-006
+    title: Consolidação e Pacote de Submissão Acadêmica UFG (ePrompt & SDD)
+    file: docs/ADR/ADR-006-academic-submission-ufg.md
+    status: accepted
+    date: "2026-10-26"
+
 stories:
   - id: STORY-006
     title: Cognitive Orchestration Enhancement & Persona Enrichment
@@ -66,7 +72,20 @@ stories:
     spec: .agent/stories/006-cognitive-orchestration-enhancement-spec.md
     status: completed
 
+  - id: STORY-007
+    title: Academic Submission Package (Pós-Graduação UFG — Prof. Sandeco)
+    file: .agent/stories/007-academic-submission-ufg-story.md
+    spec: .agent/stories/007-academic-submission-ufg-spec.md
+    status: completed
+
 sessions:
+  - date: "2026-10-26"
+    summary: >
+      Estruturação do subprojeto de submissão acadêmica UFG para a disciplina de Engenharia de Prompts
+      e Spec-Driven Development do Prof. Sandeco Macedo. Criação do DOCUMENTO_ENTREGA_UFG.md para geração
+      do PDF (Aviso T4), monografia técnica didática (ARTIGO_TECNICO_PROJETO.md), roteiro minuto a minuto do vídeo
+      de 5 a 7 minutos (ROTEIRO_GRAVACAO_VIDEO.md) e apresentação interativa moderna (slides/index.html e slides.md).
+
   - date: "2026-05-13"
     summary: >
       Correção de conflito Error 409 (remoção de código legado Telegraf).
@@ -78,17 +97,12 @@ sessions:
       Type-check: zero erros. Status: pronto para ingestão dos 55 livros.
 
 next_steps:
-  - step: Ingerir 55 obras
-    command: "python ingest.py"
-    estimated_time: "30-90 minutos"
+  - step: Gravar o vídeo demonstrativo de 5 a 7 minutos seguindo ROTEIRO_GRAVACAO_VIDEO.md
     priority: high
 
-  - step: Inicializar servidor ChromaDB antes do bot
-    command: "start_rag_server.bat (Terminal 1)"
+  - step: Exportar DOCUMENTO_ENTREGA_UFG.md para PDF
     priority: high
 
-  - step: Testar Expert Mode com perguntas reais de cada domínio
+  - step: Subir o PDF e o link/vídeo na pasta do Google Drive da pós da UFG (prazo: 17/11/2026)
     priority: high
 
-  - step: Expandir skills conforme novas obras forem adicionadas
-    priority: medium

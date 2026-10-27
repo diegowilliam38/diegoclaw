@@ -78,10 +78,20 @@ npm run dev
 Este projeto adota o padrão **Spec-Driven Development (SDD)**. Nenhuma alteração no código `src/` é feita sem spec e story correspondentes em `.agent/stories/`.
 
 ### Registros de Decisão e Histórico:
-- **[ADR-001](file:///c:/Users/Diego%20William/OneDrive/%C3%81rea%20de%20Trabalho/AIOS-WORKSPACE/projects/diegoclaw/docs/ADR/ADR-001-chromadb-vector-store.md):** ChromaDB como Vector Store Local
-- **[ADR-002](file:///c:/Users/Diego%20William/OneDrive/%C3%81rea%20de%20Trabalho/AIOS-WORKSPACE/projects/diegoclaw/docs/ADR/ADR-002-rag-expert-mode.md):** RAG Expert Mode — Síntese Consultiva
-- **[ADR-005](file:///c:/Users/Diego%20William/OneDrive/%C3%81rea%20de%20Trabalho/AIOS-WORKSPACE/projects/diegoclaw/docs/ADR/ADR-005-orquestracao-cognitiva-expandida.md):** Orquestração Cognitiva Expandida & Atualização de Personas (93 Obras)
-- **[Story-006](file:///c:/Users/Diego%20William/OneDrive/%C3%81rea%20de%20Trabalho/AIOS-WORKSPACE/projects/diegoclaw/.agent/stories/006-cognitive-orchestration-enhancement-story.md):** Especificações da atualização cognitiva e RAG com OCR.
+- **[ADR-001](docs/ADR/ADR-001-chromadb-vector-store.md):** ChromaDB como Vector Store Local
+- **[ADR-002](docs/ADR/ADR-002-rag-expert-mode.md):** RAG Expert Mode — Síntese Consultiva
+- **[ADR-005](docs/ADR/ADR-005-orquestracao-cognitiva-expandida.md):** Orquestração Cognitiva Expandida & Atualização de Personas (93 Obras)
+- **[ADR-006](docs/ADR/ADR-006-academic-submission-ufg.md):** Consolidação e Pacote de Submissão Acadêmica UFG
+- **[Story-006](.agent/stories/006-cognitive-orchestration-enhancement-story.md):** Especificações da atualização cognitiva e RAG com OCR
+- **[Story-007](.agent/stories/007-academic-submission-ufg-story.md):** Especificações da submissão acadêmica UFG
+
+### 🎓 Submissão Acadêmica — Pós-Graduação UFG (Aviso T4)
+Projeto submetido para a disciplina de **Engenharia de Prompts & Spec-Driven Development (ePrompt)** — **Prof. Sandeco Macedo**:
+- **[Pacote de Submissão Acadêmica](academic-submission-ufg/)**:
+  - [Documento de Entrega Oficial](academic-submission-ufg/DOCUMENTO_ENTREGA_UFG.md) (relatório para PDF)
+  - [Monografia Técnica e Didática](academic-submission-ufg/ARTIGO_TECNICO_PROJETO.md) (Do Vibe Coding ao SDD)
+  - [Roteiro do Vídeo (5 a 7 min)](academic-submission-ufg/ROTEIRO_GRAVACAO_VIDEO.md)
+  - [Apresentação Interativa MIRA](academic-submission-ufg/slides/index.html) (HTML5/CSS3)
 
 ---
-**Projeto desenvolvido no ecossistema AIOS-WORKSPACE sob a GLOBAL RULES V5.12.**
+**Projeto desenvolvido no ecossistema AIOS-WORKSPACE sob a GLOBAL RULES V5.13.**
