@@ -42,9 +42,9 @@ Para sanar essas limitações, o DiegoClaw foi construído estritamente sob os p
 Durante o desenvolvimento do DiegoClaw, nenhuma linha de código em produção (`src/`) foi implementada ou alterada sem a existência prévia de uma especificação formal. A governança do repositório adota o seguinte pipeline:
 - **Histórias de Usuário e Negócio (`.agent/stories/[id]-story.md`):** Formalização da dor do usuário, escopo e requisitos de entrega.
 - **Especificações Técnicas Atômicas (`.agent/stories/[id]-spec.md`):** Detalhamento das interfaces, contratos de dados e a **Matriz de Verificação Binária (Critérios Pass/Fail)**.
-- **Registros de Decisões de Arquitetura (`docs/ADR/`):** Documentação imutável das razões que motivaram escolhas técnicas (ADR-001 a ADR-006).
+- **Registros de Decisões de Arquitetura (`docs/ADR/`):** Documentação imutável das razões que motivaram escolhas técnicas (ADR-001 a ADR-007).
 
-O ciclo foi validado em 7 iterações formais (Stories 001 a 007), garantindo que a base de código TypeScript mantivesse **zero erros de tipagem estática** (`tsc --noEmit`) ao longo de todo o ciclo de vida.
+O ciclo foi validado em 8 iterações formais (Stories 001 a 008), garantindo que a base de código TypeScript mantivesse **zero erros de tipagem estática** (`tsc --noEmit`) ao longo de todo o ciclo de vida.
 
 ### 3.2 Engenharia de Prompts Avançada (ePrompt)
 
@@ -55,7 +55,10 @@ O projeto adota padrões estruturados de engenharia de prompts que transcendem a
 3. **RAG Expert Mode (Mitigação de Alucinação e Paráfrase Cega):**
    - Em vez de concatenar texto recuperado diretamente no contexto de geração, o prompt atua como uma bancada de auditoria: o modelo é instruído a tratar os *chunks* do ChromaDB como **evidências de apoio a uma hipótese técnica**.
    - Caso os chunks contenham contradições ou literatura desatualizada em tópicos de rápida evolução, o prompt obriga a emissão de um alerta explícito de *Knowledge Currency*.
-4. **Guardrails e Defesa Contra Adversários:** O pipeline conta com análise léxica e semântica prévia para impedir ataques de *jailbreak*, vazamento de *system prompts* ou injeções indiretas de comandos provenientes de documentos externos inseridos dinamicamente na base vetorial.
+4. **Guardrails e Defesa Contra Adversários:** O pipeline conta com análise léxica e semântica prévia para impedir ataques de *jailbreak*, vazamento de *system prompts* ou injeções indiretas de comandos provenientes de documentos externos ou canais de voz STT.
+
+### 3.3 Interface Multimodal & Síntese Neural Resiliente (STT + TTS Bidirecional)
+Validado em produção real via Telegram: o agente recebe áudio do usuário (Whisper-1), normaliza e sanitiza a entrada, aciona a síntese consultiva no RAG e devolve resposta completa em texto acompanhada de síntese neural de voz em alta definição (Edge-TTS v7+ com fallback automático para OpenAI TTS), permitindo operação por voz em cenários de mobilidade (ADR-007).
 
 ---
 

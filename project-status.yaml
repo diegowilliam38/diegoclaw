@@ -3,8 +3,8 @@ status: development
 phase: rag-expert-mode
 tech_lead: Diego William
 environment: Antigravity
-version: "2.0"
-updated: "2026-05-13"
+version: "2.1"
+updated: "2026-10-28"
 
 stack:
   runtime: Node.js 20+ / TypeScript
@@ -65,6 +65,12 @@ decisions:
     status: accepted
     date: "2026-10-26"
 
+  - id: ADR-007
+    title: Resiliência da Engine de Voz (Edge-TTS v7 + OpenAI Fallback)
+    file: docs/ADR/ADR-007-voice-engine-resilience.md
+    status: accepted
+    date: "2026-10-28"
+
 stories:
   - id: STORY-006
     title: Cognitive Orchestration Enhancement & Persona Enrichment
@@ -76,6 +82,12 @@ stories:
     title: Academic Submission Package (Pós-Graduação UFG — Prof. Sandeco)
     file: .agent/stories/007-academic-submission-ufg-story.md
     spec: .agent/stories/007-academic-submission-ufg-spec.md
+    status: completed
+
+  - id: STORY-008
+    title: Voice Engine Resilience & Bidirectional Audio Support
+    file: .agent/stories/008-voice-engine-resilience-story.md
+    spec: .agent/stories/008-voice-engine-resilience-spec.md
     status: completed
 
 sessions:

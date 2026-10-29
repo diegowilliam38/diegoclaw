@@ -87,9 +87,9 @@ graph TD
 | **Raciocínio IA** | ReAct Pattern | Thought → Action → Observation → Answer |
 | **LLM Principal** | OpenAI GPT-4o-mini | Custo/benefício: ~$0.15/1M tokens, excelente pt-BR |
 | **LLM Fallback** | DeepSeek | Fallback gratuito/barato em caso de falha OpenAI |
-| **STT** | Whisper Local *(fase futura)* | Transcrição privada sem custo de API |
-| **TTS** | Edge-TTS pt-BR-Francisca *(fase futura)* | Voz feminina pt-BR de alta qualidade |
-| **PDF** | `pdf-parse` *(fase futura)* | Extração de texto estruturado para IA |
+| **STT** | OpenAI Whisper-1 | Transcrição de áudio em tempo real de mensagens de voz |
+| **TTS** | Edge-TTS v7+ (pt-BR-FranciscaNeural) + OpenAI TTS Fallback | Síntese de voz neural bidirecional em tempo real |
+| **PDF** | `pdf-parse` + OCR | Extração e ingestão de documentos estruturados para o RAG |
 
 ---
 

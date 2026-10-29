@@ -83,8 +83,19 @@ export class TelegramInputHandler {
     // 4. Processar via AgentController
     try {
       console.log(`[INPUT] userId=${userId} | msg="${sanitized.substring(0, 80)}..."`);
-      const response = await this.agentController.processMessage(userId, sanitized);
+      
+      const wantsVoice = /(em áudio|em audio|por áudio|por audio|em voz|mande áudio|mande audio|manda áudio|manda audio|fale em áudio|fale em audio|grave um áudio|grave um audio|responda em áudio|responda em audio)/i.test(sanitized) 
+        || sanitized.startsWith('/audio') 
+        || sanitized.startsWith('/voz');
+      
+      const cleanPrompt = sanitized.replace(/^\/(audio|voz)\s*/i, '');
+      const response = await this.agentController.processMessage(userId, cleanPrompt);
       await this.sendResponse(ctx, response);
+
+      // Se o usuário pediu resposta em áudio via texto, sintetiza e envia a voz
+      if (wantsVoice) {
+        await this.sendVoiceResponse(ctx, response);
+      }
     } catch (err: any) {
       console.error('[TelegramInputHandler] Erro ao processar mensagem:', err.message);
       await ctx.reply('❌ Ocorreu um erro interno. Tente novamente.');
@@ -117,18 +128,25 @@ export class TelegramInputHandler {
       const response = await this.agentController.processMessage(userId, sanitized);
       await this.sendResponse(ctx, response);
       
-      // Sintetizar e enviar áudio de volta (Apenas para comandos de voz)
-      try {
-        await ctx.replyWithChatAction('record_voice');
-        const audioPath = await this.voiceSynthesizer.synthesize(response);
-        await ctx.replyWithVoice(new InputFile(audioPath));
-        await fs.promises.unlink(audioPath).catch(() => {});
-      } catch (ttsErr: any) {
-        console.error('[TelegramInputHandler] Falha ao gerar áudio de resposta:', ttsErr.message);
-      }
+      // Sintetizar e enviar áudio de volta para comandos de voz
+      await this.sendVoiceResponse(ctx, response);
     } catch (err: any) {
       console.error('[TelegramInputHandler] Erro ao processar áudio:', err.message);
       await ctx.reply('❌ Falha ao processar a mensagem de voz. Verifique os logs.');
+    }
+  }
+
+  /**
+   * Sintetiza e envia resposta em áudio (voz neural) via Telegram
+   */
+  private async sendVoiceResponse(ctx: Context, response: string): Promise<void> {
+    try {
+      await ctx.replyWithChatAction('record_voice');
+      const audioPath = await this.voiceSynthesizer.synthesize(response);
+      await ctx.replyWithVoice(new InputFile(audioPath));
+      await fs.promises.unlink(audioPath).catch(() => {});
+    } catch (ttsErr: any) {
+      console.error('[TelegramInputHandler] Falha ao gerar áudio de resposta:', ttsErr.message);
     }
   }
 
