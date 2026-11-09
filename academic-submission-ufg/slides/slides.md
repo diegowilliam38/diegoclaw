@@ -53,9 +53,10 @@ color: #f8fafc
 ## 🧠 Engenharia de Prompts Avançada (ePrompt)
 
 1. **Roteamento Cognitivo Determinístico (`SkillRouter.ts`):**
+   - **Linhagem:** Base herdada da arquitetura do **SandeClaw (Prof. Sandeco)** e expandida para o DiegoClaw V2.
    - Classificação em JSON estrito com *few-shot prompting*.
    - Seleção entre 8 personas técnicas desacopladas em `.agents/skills/`.
-   - Suporte a consultas interdisciplinares (*Cross-Domain*).
+   - Suporte nativo a consultas interdisciplinares (*Cross-Domain*).
 2. **RAG Expert Mode & Fusion:**
    - Base de **93 obras** / **25.545 chunks** com OCR bilíngue.
    - Multi-query expansion + deduplicação semântica no ChromaDB.
