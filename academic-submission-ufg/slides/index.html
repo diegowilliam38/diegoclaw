@@ -18,7 +18,7 @@
                         miraNeon: '#ff5e00',
                         miraCyan: '#00ffa2',
                         miraBlue: '#38bdf8',
-                        miraCard: 'rgba(18, 22, 34, 0.65)',
+                        miraCard: 'rgba(18, 22, 34, 0.70)',
                         miraBorder: 'rgba(255, 255, 255, 0.08)'
                     },
                     fontFamily: {
@@ -36,7 +36,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
 
-    <!-- D3.js para Partículas Vetoriais e Grafos de Conhecimento -->
+    <!-- D3.js para Partículas Vetoriais de Fundo -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <!-- Lucide Icons -->
@@ -52,7 +52,7 @@
             --mira-secondary: #00ffa2;
             --mira-accent: #38bdf8;
             --mira-bg: #05050a;
-            --mira-card-bg: rgba(18, 22, 34, 0.70);
+            --mira-card-bg: rgba(18, 22, 34, 0.72);
             --mira-card-border: rgba(255, 255, 255, 0.10);
             --mira-glow: rgba(255, 144, 77, 0.20);
         }
@@ -64,9 +64,9 @@
         body {
             background-color: var(--mira-bg);
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(255, 144, 77, 0.12) 0px, transparent 45%),
-                radial-gradient(circle at 90% 90%, rgba(0, 255, 162, 0.08) 0px, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05) 0px, transparent 60%);
+                radial-gradient(circle at 10% 10%, rgba(255, 144, 77, 0.14) 0px, transparent 45%),
+                radial-gradient(circle at 90% 90%, rgba(0, 255, 162, 0.10) 0px, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.06) 0px, transparent 60%);
             background-attachment: fixed;
             color: #f8fafc;
             font-family: 'Inter', sans-serif;
@@ -80,7 +80,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2.5rem 1.5rem;
+            padding: 3rem 1.5rem;
             position: relative;
         }
 
@@ -161,7 +161,7 @@
         /* Code Block */
         .code-box {
             font-family: 'JetBrains Mono', monospace;
-            background: rgba(5, 7, 12, 0.75);
+            background: rgba(5, 7, 12, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
         }
@@ -233,6 +233,61 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
         }
+
+        /* ============================================================
+           ANIMAÇÕES DE FIGURAS E DIAGRAMAS VISUAIS MIRA
+           ============================================================ */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes spinRev {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.35; filter: drop-shadow(0 0 6px var(--mira-primary)); }
+            50% { opacity: 0.95; filter: drop-shadow(0 0 18px var(--mira-secondary)); }
+        }
+        @keyframes dashMove {
+            to { stroke-dashoffset: -40; }
+        }
+        @keyframes waveFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes beamFlow {
+            0% { stroke-dashoffset: 120; opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.2; }
+        }
+
+        .anim-spin {
+            animation: spinSlow 28s linear infinite;
+            transform-origin: center;
+        }
+        .anim-spin-fast {
+            animation: spinSlow 14s linear infinite;
+            transform-origin: center;
+        }
+        .anim-spin-rev {
+            animation: spinRev 20s linear infinite;
+            transform-origin: center;
+        }
+        .anim-pulse {
+            animation: pulseGlow 3.5s ease-in-out infinite;
+        }
+        .anim-dash {
+            stroke-dasharray: 6 6;
+            animation: dashMove 2s linear infinite;
+        }
+        .anim-wave {
+            animation: waveFloat 4s ease-in-out infinite;
+        }
+        .anim-beam {
+            stroke-dasharray: 60 60;
+            animation: beamFlow 2.5s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-miraOrange selection:text-black">
@@ -280,44 +335,72 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 1: CAPA OFICIAL MIRA
+         SLIDE 1: CAPA OFICIAL MIRA + EMBLEMA HOLOGRÁFICO
          ========================================== -->
     <section id="slide-1" class="slide">
-        <div class="glass-card p-10 md:p-14 max-w-5xl w-full text-center relative overflow-hidden" data-aos="zoom-out" data-aos-duration="900">
+        <div class="glass-card p-8 md:p-12 max-w-5xl w-full text-center relative overflow-hidden" data-aos="zoom-out" data-aos-duration="900">
             <div class="absolute -top-32 -left-32 w-72 h-72 bg-miraOrange/15 rounded-full blur-[90px]"></div>
             <div class="absolute -bottom-32 -right-32 w-72 h-72 bg-miraCyan/10 rounded-full blur-[90px]"></div>
 
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-miraOrange/10 border border-miraOrange/25 text-miraOrange text-xs font-semibold tracking-wider uppercase mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-miraOrange/10 border border-miraOrange/25 text-miraOrange text-xs font-semibold tracking-wider uppercase mb-5">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
                 <span>MIRA ANIMATOR • PÓS UFG • INF • AVISO T4</span>
             </div>
 
-            <h1 class="font-display text-5xl md:text-7xl font-black mb-4 tracking-tight text-gradient-orange">
-                DiegoClaw 🤖
+            <!-- FIGURA CENTRAL 1: Emblema Holográfico Animado DiegoClaw -->
+            <div class="relative w-44 h-44 mx-auto my-3 flex items-center justify-center">
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200">
+                    <!-- Anel orbital externo giratório -->
+                    <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(255, 144, 77, 0.25)" stroke-width="1.5" stroke-dasharray="8 6" class="anim-spin"/>
+                    <!-- Anel orbital reverso ciano -->
+                    <circle cx="100" cy="100" r="76" fill="none" stroke="rgba(0, 255, 162, 0.3)" stroke-width="2" stroke-dasharray="12 10" class="anim-spin-rev"/>
+                    <!-- Nós satélites nos anéis -->
+                    <circle cx="100" cy="8" r="5" fill="#ff904d" class="anim-spin"/>
+                    <circle cx="192" cy="100" r="4.5" fill="#00ffa2" class="anim-spin"/>
+                    <circle cx="24" cy="100" r="4" fill="#38bdf8" class="anim-spin"/>
+                    <!-- Núcleo central com glow -->
+                    <circle cx="100" cy="100" r="56" fill="url(#coreGlow)" class="anim-pulse"/>
+                    <defs>
+                        <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#ff904d" stop-opacity="0.4"/>
+                            <stop offset="70%" stop-color="#05050a" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="rgba(0, 255, 162, 0.3)" stop-opacity="1"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+                <!-- Ícone central do robô -->
+                <div class="relative z-10 p-4 rounded-2xl bg-black/60 border border-white/15 shadow-2xl flex flex-col items-center">
+                    <span class="text-4xl block">🤖</span>
+                    <span class="text-[9px] font-mono uppercase tracking-widest text-miraOrange font-bold mt-1">DiegoClaw</span>
+                </div>
+            </div>
+
+            <h1 class="font-display text-4xl md:text-6xl font-black mb-3 tracking-tight text-gradient-orange">
+                DiegoClaw
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 font-light mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-lg md:text-xl text-slate-300 font-light mb-6 max-w-2xl mx-auto leading-relaxed">
                 Agente Híbrido Autônomo com RAG Expert Mode e Spec-Driven Development
             </p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left mb-8">
-                <div class="p-3.5 bg-white/[0.03] border border-white/5 rounded-xl flex items-center gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-3xl mx-auto text-left mb-6">
+                <div class="p-3 bg-white/[0.03] border border-white/5 rounded-xl flex items-center gap-3">
                     <i data-lucide="user" class="w-5 h-5 text-miraOrange flex-shrink-0"></i>
                     <div>
-                        <span class="text-xs text-slate-400 block font-medium">Pesquisador / Aluno</span>
+                        <span class="text-[11px] text-slate-400 block font-medium">Pesquisador / Aluno</span>
                         <strong class="text-sm text-slate-100">Diego William</strong>
                     </div>
                 </div>
-                <div class="p-3.5 bg-white/[0.03] border border-white/5 rounded-xl flex items-center gap-3">
+                <div class="p-3 bg-white/[0.03] border border-white/5 rounded-xl flex items-center gap-3">
                     <i data-lucide="graduation-cap" class="w-5 h-5 text-miraCyan flex-shrink-0"></i>
                     <div>
-                        <span class="text-xs text-slate-400 block font-medium">Docente Titular</span>
+                        <span class="text-[11px] text-slate-400 block font-medium">Docente Titular</span>
                         <strong class="text-sm text-slate-100">Prof. Sandeco Macedo</strong>
                     </div>
                 </div>
-                <div class="p-3.5 bg-white/[0.03] border border-white/5 rounded-xl flex items-center gap-3">
+                <div class="p-3 bg-white/[0.03] border border-white/5 rounded-xl flex items-center gap-3">
                     <i data-lucide="book-open" class="w-5 h-5 text-miraBlue flex-shrink-0"></i>
                     <div>
-                        <span class="text-xs text-slate-400 block font-medium">Disciplina</span>
+                        <span class="text-[11px] text-slate-400 block font-medium">Disciplina</span>
                         <strong class="text-sm text-slate-100">ePrompt & SDD</strong>
                     </div>
                 </div>
@@ -330,358 +413,512 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 2: VIBE CODING VS SPEC-DRIVEN DEVELOPMENT
+         SLIDE 2: FIGURAS COMPARATIVAS — VIBE CODING VS SDD
          ========================================== -->
     <section id="slide-2" class="slide">
         <div class="max-w-6xl w-full">
-            <div class="text-center mb-10" data-aos="fade-down">
-                <span class="text-xs font-mono uppercase tracking-widest text-miraOrange font-semibold block mb-2">Metodologia Fundamental</span>
-                <h2 class="font-display text-4xl md:text-5xl font-extrabold text-gradient-orange">
+            <div class="text-center mb-8" data-aos="fade-down">
+                <span class="text-xs font-mono uppercase tracking-widest text-miraOrange font-semibold block mb-1">Metodologia Fundamental</span>
+                <h2 class="font-display text-3xl md:text-5xl font-extrabold text-gradient-orange">
                     A Morte do "Vibe Coding"
                 </h2>
-                <p class="text-slate-400 text-base max-w-2xl mx-auto mt-2">
-                    Como o Spec-Driven Development (SDD) transforma agentes de IA de brinquedos probabilísticos em sistemas de produção.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <!-- Card Vibe Coding -->
-                <div class="glass-card p-8 border-l-4 border-l-red-500/80" data-aos="fade-right" data-aos-delay="100">
-                    <div class="flex items-center gap-3 mb-4 text-red-400">
-                        <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-                        <h3 class="font-display text-2xl font-bold">O Risco do "Vibe Coding"</h3>
-                    </div>
-                    <ul class="space-y-3 text-sm text-slate-300 leading-relaxed">
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-red-400 font-bold">•</span>
-                            <span><strong>Indução Cega:</strong> Instruções abertas geram código que "parece funcionar", mas acumula falhas silenciosas.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-red-400 font-bold">•</span>
-                            <span><strong>Sem Contratos Formais:</strong> O agente decide interfaces por conta própria, quebrando a retrocompatibilidade.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-red-400 font-bold">•</span>
-                            <span><strong>Degradação de Arquitetura:</strong> A cada novo prompt, o modelo sobrescreve regras vitais.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Card SDD -->
-                <div class="glass-card p-8 border-l-4 border-l-miraCyan" data-aos="fade-left" data-aos-delay="200">
-                    <div class="flex items-center gap-3 mb-4 text-miraCyan">
-                        <i data-lucide="shield-check" class="w-6 h-6"></i>
-                        <h3 class="font-display text-2xl font-bold">Spec-Driven Development (SDD)</h3>
-                    </div>
-                    <ul class="space-y-3 text-sm text-slate-300 leading-relaxed">
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-miraCyan font-bold">•</span>
-                            <span><strong>Zero Trust Code Gate:</strong> Proibido gerar código em <code>src/</code> sem especificação técnica prévia.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-miraCyan font-bold">•</span>
-                            <span><strong>Critérios Binários (Pass/Fail):</strong> Validações matemáticas, sem zona cinza opinativa.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-miraCyan font-bold">•</span>
-                            <span><strong>Memória Imutável em ADRs:</strong> Cada decisão técnica é selada em <code>docs/ADR/</code>.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Pipeline visual -->
-            <div class="code-box p-4 text-center text-xs sm:text-sm text-slate-300 flex flex-wrap items-center justify-center gap-2" data-aos="fade-up">
-                <span class="text-miraOrange font-semibold">[Dor do Usuário]</span> ➔
-                <span class="text-slate-200">.agent/stories/[ID]-story.md</span> ➔
-                <span class="text-miraCyan font-semibold">.agent/stories/[ID]-spec.md (Pass/Fail)</span> ➔
-                <span class="text-slate-200">src/</span> ➔
-                <span class="text-miraBlue font-semibold">ADR Registrado</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         SLIDE 3: ENGENHARIA DE PROMPTS AVANÇADA
-         ========================================== -->
-    <section id="slide-3" class="slide">
-        <div class="max-w-6xl w-full">
-            <div class="text-center mb-10" data-aos="fade-down">
-                <span class="text-xs font-mono uppercase tracking-widest text-miraCyan font-semibold block mb-2">Cognição Estruturada</span>
-                <h2 class="font-display text-4xl md:text-5xl font-extrabold text-gradient-cyan">
-                    Engenharia de Prompts (ePrompt)
-                </h2>
-                <p class="text-slate-400 text-base max-w-2xl mx-auto mt-2">
-                    Programando o comportamento probabilístico do LLM através de restrições determinísticas.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-                <div class="glass-card p-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-10 h-10 rounded-lg bg-miraOrange/15 text-miraOrange flex items-center justify-center mb-4">
-                        <i data-lucide="git-branch" class="w-5 h-5"></i>
-                    </div>
-                    <div class="flex items-center gap-2 mb-2">
-                        <h3 class="font-bold text-lg text-white">SkillRouter Metacognitivo</h3>
-                    </div>
-                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-miraOrange/10 border border-miraOrange/30 text-miraOrange mb-2">
-                        Linhagem: SandeClaw (Sandeco) ➔ DiegoClaw V2
-                    </span>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Fundação herdada do <strong>SandeClaw</strong> e expandida para <strong>Cross-Domain</strong>. Classificador determinístico em JSON estrito que isola o contexto e previne o <em>Lost in the Middle</em>.
-                    </p>
-                </div>
-
-                <div class="glass-card p-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-10 h-10 rounded-lg bg-miraCyan/15 text-miraCyan flex items-center justify-center mb-4">
-                        <i data-lucide="users" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-white mb-2">Personas Especializadas</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        8 personas ricas em <code>.agents/skills/</code> (ia-engineer, devops, software-engineer, project-manager), cada uma com vocabulário canônico e restrições de domínio.
-                    </p>
-                </div>
-
-                <div class="glass-card p-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-10 h-10 rounded-lg bg-miraBlue/15 text-miraBlue flex items-center justify-center mb-4">
-                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-white mb-2">Guardrails Anti-Injection</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Filtros semânticos e barreiras léxicas ativas para conter ataques de injeção de comandos diretos e indiretos vindos de arquivos externos.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Snippet JSON do Router -->
-            <div class="code-box p-4" data-aos="fade-up">
-                <div class="flex justify-between items-center text-xs text-slate-500 mb-2 border-b border-white/5 pb-2">
-                    <span class="font-mono text-miraOrange">SkillRouter.ts — Contrato de Saída Determinística</span>
-                    <span class="font-mono">JSON Schema Estrito</span>
-                </div>
-                <pre class="text-xs text-slate-300 font-mono overflow-x-auto leading-relaxed"><code>{
-  <span class="text-miraCyan">"skill"</span>: <span class="text-miraOrange">"ia-engineer"</span>,
-  <span class="text-miraCyan">"confidence"</span>: <span class="text-miraBlue">0.98</span>,
-  <span class="text-miraCyan">"requires_rag"</span>: <span class="text-yellow-400">true</span>,
-  <span class="text-miraCyan">"requires_tools"</span>: <span class="text-yellow-400">false</span>,
-  <span class="text-miraCyan">"cross_domain_skills"</span>: [<span class="text-miraOrange">"devops"</span>]
-}<span class="code-cursor"></span></code></pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         SLIDE 4: RAG EXPERT MODE & FUSION
-         ========================================== -->
-    <section id="slide-4" class="slide">
-        <div class="max-w-6xl w-full">
-            <div class="text-center mb-10" data-aos="fade-down">
-                <span class="text-xs font-mono uppercase tracking-widest text-miraBlue font-semibold block mb-2">Memória Semântica de Elite</span>
-                <h2 class="font-display text-4xl md:text-5xl font-extrabold text-gradient-blue">
-                    RAG Expert Mode & Fusion
-                </h2>
-                <p class="text-slate-400 text-base max-w-2xl mx-auto mt-2">
-                    93 obras de referência ingeridas com OCR bilíngue. Síntese consultiva em vez de regurgitação de chunks.
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-1">
+                    Como o Spec-Driven Development (SDD) substitui o caos probabilístico pela previsibilidade de engenharia.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div class="glass-card p-7" data-aos="fade-right">
-                    <div class="flex items-center gap-3 text-miraOrange mb-3">
-                        <i data-lucide="layers" class="w-6 h-6"></i>
-                        <h3 class="font-bold text-xl text-white">RAG Fusion & Multi-Query</h3>
+                <!-- FIGURA 2A: O Labirinto Caótico do Vibe Coding -->
+                <div class="glass-card p-6 border-l-4 border-l-red-500/80" data-aos="fade-right" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-3 text-red-400">
+                        <div class="flex items-center gap-2.5">
+                            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                            <h3 class="font-display text-xl font-bold">O Caos do "Vibe Coding"</h3>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/10 border border-red-500/30 text-red-300">Indução Cega</span>
                     </div>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                        Toda pergunta complexa do usuário é expandida em <strong>3 variantes semânticas</strong> geradas pelo LLM para cobrir sinônimos e termos em inglês e português.
-                    </p>
-                    <div class="p-3 bg-black/40 border border-white/5 rounded-lg text-xs text-slate-400 font-mono">
-                        Pergunta ➔ Query Expansion (3x) ➔ ChromaDB Vector Search ➔ Deduplicação (Top 8 Chunks)
+
+                    <!-- Diagrama Ilustrativo: Linhas curvas de erro emaranhadas -->
+                    <div class="w-full h-32 bg-black/40 rounded-xl border border-red-500/20 mb-4 p-2 relative overflow-hidden flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 320 100">
+                            <!-- Traçado em loop confuso -->
+                            <path d="M 20 50 Q 70 10, 110 50 T 160 80 T 210 30 T 260 70 T 140 30" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3" class="anim-dash"/>
+                            <!-- Nós de falha piscando -->
+                            <circle cx="80" cy="30" r="5" fill="#ef4444" opacity="0.9"/>
+                            <text x="90" y="28" fill="#fca5a5" font-size="9" font-family="monospace">Alucinação</text>
+                            
+                            <circle cx="190" cy="75" r="5" fill="#f97316" opacity="0.9"/>
+                            <text x="200" y="80" fill="#fdba74" font-size="9" font-family="monospace">Regressão</text>
+                            
+                            <circle cx="270" cy="45" r="6" fill="#dc2626" opacity="0.9"/>
+                            <text x="230" y="42" fill="#ef4444" font-size="9" font-family="monospace">Loop Infinito</text>
+
+                            <!-- Seta de retorno ao zero -->
+                            <path d="M 280 75 Q 160 100, 30 75" fill="none" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+                            <text x="90" y="94" fill="#ef4444" font-size="9" font-family="monospace">↻ Refazer tudo do zero...</text>
+                        </svg>
                     </div>
+
+                    <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                        <li>• <strong>Sem Contratos:</strong> O agente decide interfaces por tentativa e erro.</li>
+                        <li>• <strong>Regressão Oculta:</strong> Uma alteração quebra recursos implementados anteriormente.</li>
+                        <li>• <strong>Vício de Refatoração:</strong> Ciclos infinitos de "conserta um erro, cria dois novos".</li>
+                    </ul>
                 </div>
 
-                <div class="glass-card p-7" data-aos="fade-left">
-                    <div class="flex items-center gap-3 text-miraCyan mb-3">
-                        <i data-lucide="brain" class="w-6 h-6"></i>
-                        <h3 class="font-bold text-xl text-white">Síntese Consultiva vs Cópia</h3>
+                <!-- FIGURA 2B: A Esteira de Precisão do SDD (Zero Trust Pipeline) -->
+                <div class="glass-card p-6 border-l-4 border-l-miraCyan" data-aos="fade-left" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-3 text-miraCyan">
+                        <div class="flex items-center gap-2.5">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            <h3 class="font-display text-xl font-bold">A Esteira Rigorosa do SDD</h3>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-miraCyan/10 border border-miraCyan/30 text-miraCyan">Zero Trust Code</span>
                     </div>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                        O prompt instrui o modelo a tratar os chunks como <strong>evidências técnicas de apoio</strong>. Cópia literal é estritamente proibida; o agente elabora parecer consultivo fundamentado.
-                    </p>
-                    <div class="p-3 bg-black/40 border border-white/5 rounded-lg text-xs text-slate-400 font-mono">
-                        Knowledge Currency: Alerta obrigatório para bibliotecas e frameworks de rápida evolução
+
+                    <!-- Diagrama Ilustrativo: Esteira linear e limpa com checkpoints PASS -->
+                    <div class="w-full h-32 bg-black/40 rounded-xl border border-miraCyan/20 mb-4 p-2 relative overflow-hidden flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 340 100">
+                            <!-- Linha de esteira iluminada -->
+                            <line x1="25" y1="50" x2="315" y2="50" stroke="#00ffa2" stroke-width="2" stroke-dasharray="6 4" class="anim-dash"/>
+
+                            <!-- Estação 1: Dor do Usuário -->
+                            <circle cx="45" cy="50" r="14" fill="#121622" stroke="#ff904d" stroke-width="2"/>
+                            <text x="45" y="54" text-anchor="middle" fill="#ff904d" font-size="12">🎯</text>
+                            <text x="45" y="75" text-anchor="middle" fill="#cbd5e1" font-size="8" font-family="monospace">Story.md</text>
+
+                            <!-- Estação 2: Spec Binária -->
+                            <circle cx="135" cy="50" r="14" fill="#121622" stroke="#00ffa2" stroke-width="2"/>
+                            <text x="135" y="54" text-anchor="middle" fill="#00ffa2" font-size="11">✔</text>
+                            <text x="135" y="75" text-anchor="middle" fill="#00ffa2" font-size="8" font-family="monospace">Spec (PASS)</text>
+
+                            <!-- Estação 3: Code src/ -->
+                            <circle cx="225" cy="50" r="14" fill="#121622" stroke="#38bdf8" stroke-width="2"/>
+                            <text x="225" y="54" text-anchor="middle" fill="#38bdf8" font-size="11">⚡</text>
+                            <text x="225" y="75" text-anchor="middle" fill="#cbd5e1" font-size="8" font-family="monospace">Code src/</text>
+
+                            <!-- Estação 4: ADR Imutável -->
+                            <circle cx="300" cy="50" r="14" fill="#121622" stroke="#a855f7" stroke-width="2"/>
+                            <text x="300" y="54" text-anchor="middle" fill="#a855f7" font-size="11">🏛️</text>
+                            <text x="300" y="75" text-anchor="middle" fill="#cbd5e1" font-size="8" font-family="monospace">ADR Selado</text>
+                        </svg>
                     </div>
+
+                    <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                        <li>• <strong>Zero Trust Code Gate:</strong> Proibido gerar código sem spec atômica prévia.</li>
+                        <li>• <strong>Critérios Binários:</strong> Matriz matemática de validação (PASS ou FAIL).</li>
+                        <li>• <strong>Memória Persistente:</strong> Decisões registradas de forma imutável em ADRs.</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Destaque Acervo -->
-            <div class="glass-card p-5 flex flex-wrap items-center justify-between gap-4 border-t-2 border-t-miraBlue" data-aos="fade-up">
-                <div class="flex items-center gap-3">
-                    <i data-lucide="library" class="w-8 h-8 text-miraBlue"></i>
-                    <div>
-                        <strong class="text-sm text-white block">Acervo Ingerido: 93 Obras de Engenharia de IA</strong>
-                        <span class="text-xs text-slate-400">Harness Engineering (Sandeco), Loop Engineering, GraphRAG Neo4j, TypeScript, Governança CNJ/TSE.</span>
-                    </div>
-                </div>
-                <span class="px-4 py-1.5 rounded-full bg-miraBlue/10 border border-miraBlue/30 text-miraBlue font-mono font-bold text-sm">
-                    25.545 Chunks Vetorizados
-                </span>
+            <!-- Resumo da Regra -->
+            <div class="code-box p-3 text-center text-xs text-slate-300 flex flex-wrap items-center justify-center gap-2" data-aos="fade-up">
+                <span class="text-miraOrange font-semibold">[Dor do Usuário]</span> ➔
+                <span class="text-slate-200">.agent/stories/[ID]-story.md</span> ➔
+                <span class="text-miraCyan font-semibold">.agent/stories/[ID]-spec.md (Pass/Fail)</span> ➔
+                <span class="text-miraBlue font-semibold">Zero Erros TypeScript (tsc --noEmit)</span>
             </div>
         </div>
     </section>
 
     <!-- ==========================================
-         SLIDE 5: HARNESS & LOOP ENGINEERING
+         SLIDE 3: FIGURA ARQUITETURAL — SKILLROUTER & PERSONAS
          ========================================== -->
-    <section id="slide-5" class="slide">
+    <section id="slide-3" class="slide">
         <div class="max-w-6xl w-full">
-            <div class="text-center mb-10" data-aos="fade-down">
-                <span class="text-xs font-mono uppercase tracking-widest text-miraOrange font-semibold block mb-2">Resiliência Operacional</span>
-                <h2 class="font-display text-4xl md:text-5xl font-extrabold text-gradient-orange">
-                    Harness & Loop Engineering
+            <div class="text-center mb-6" data-aos="fade-down">
+                <span class="text-xs font-mono uppercase tracking-widest text-miraCyan font-semibold block mb-1">Cognição Estruturada</span>
+                <h2 class="font-display text-3xl md:text-5xl font-extrabold text-gradient-cyan">
+                    Engenharia de Prompts (ePrompt)
                 </h2>
-                <p class="text-slate-400 text-base max-w-2xl mx-auto mt-2">
-                    O arcabouço de controle que impede alucinações e loops infinitos de ferramentas.
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-1">
+                    Como o SkillRouter transforma decisões probabilísticas em transições determinísticas de estado.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="glass-card p-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-10 h-10 rounded-lg bg-miraOrange/15 text-miraOrange flex items-center justify-center mb-4">
-                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center mb-6">
+                <!-- FIGURA 3: Diagrama de Roteamento em Leque (SkillRouter Flow) -->
+                <div class="md:col-span-7 glass-card p-5" data-aos="fade-right">
+                    <div class="flex items-center justify-between mb-3 border-b border-white/10 pb-2">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="git-branch" class="w-4 h-4 text-miraOrange"></i>
+                            <h3 class="font-display text-sm font-bold text-white">Roteamento Metacognitivo & Cross-Domain</h3>
+                        </div>
+                        <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-miraOrange/15 border border-miraOrange/30 text-miraOrange">
+                            Linhagem: SandeClaw ➔ DiegoClaw V2
+                        </span>
                     </div>
-                    <h3 class="font-bold text-lg text-white mb-2">Loop Detector Heurístico</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Rastreia chamadas recursivas de ferramentas externas (MCP/Tools). Ao detectar ciclos repetitivos sem avanço, aborta com contingência segura.
-                    </p>
+
+                    <div class="w-full h-56 bg-black/50 rounded-xl border border-white/5 p-2 flex items-center justify-center relative">
+                        <svg class="w-full h-full" viewBox="0 0 420 200">
+                            <!-- Usuário no Topo -->
+                            <rect x="130" y="8" width="160" height="26" rx="13" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                            <text x="210" y="25" text-anchor="middle" fill="#f8fafc" font-size="10" font-family="monospace">💬 Pergunta do Usuário</text>
+
+                            <!-- Feixe de entrada -->
+                            <line x1="210" y1="34" x2="210" y2="60" stroke="#ff904d" stroke-width="2" stroke-dasharray="4 2" class="anim-dash"/>
+
+                            <!-- O Cérebro: SkillRouter (SandeClaw Foundation) -->
+                            <rect x="110" y="60" width="200" height="38" rx="8" fill="#121622" stroke="#ff904d" stroke-width="2"/>
+                            <text x="210" y="76" text-anchor="middle" fill="#ff904d" font-size="11" font-weight="bold">🧠 SkillRouter.ts</text>
+                            <text x="210" y="90" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">JSON Schema • Zero Context Leak</text>
+
+                            <!-- Feixes divergentes para as Personas -->
+                            <!-- Feixe 1: IA Engineer (Ativo) -->
+                            <path d="M 160 98 L 70 140" stroke="#ff904d" stroke-width="2.5" class="anim-beam"/>
+                            <rect x="20" y="140" width="100" height="36" rx="6" fill="#1e2230" stroke="#ff904d" stroke-width="2"/>
+                            <text x="70" y="156" text-anchor="middle" fill="#ff904d" font-size="10" font-weight="bold">ia-engineer</text>
+                            <text x="70" y="168" text-anchor="middle" fill="#94a3b8" font-size="8">LangGraph / RAG</text>
+
+                            <!-- Feixe 2: Cross Domain (DevOps / Data) -->
+                            <path d="M 210 98 L 210 140" stroke="#00ffa2" stroke-width="2" stroke-dasharray="4 2" class="anim-dash"/>
+                            <rect x="160" y="140" width="100" height="36" rx="6" fill="#1e2230" stroke="#00ffa2" stroke-width="1.5"/>
+                            <text x="210" y="156" text-anchor="middle" fill="#00ffa2" font-size="10" font-weight="bold">devops</text>
+                            <text x="210" y="168" text-anchor="middle" fill="#94a3b8" font-size="8">Docker / CI-CD</text>
+
+                            <!-- Feixe 3: Data Engineer (Cross Domain) -->
+                            <path d="M 260 98 L 350 140" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 2" class="anim-dash"/>
+                            <rect x="300" y="140" width="100" height="36" rx="6" fill="#1e2230" stroke="#38bdf8" stroke-width="1.5"/>
+                            <text x="350" y="156" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">data-engineer</text>
+                            <text x="350" y="168" text-anchor="middle" fill="#94a3b8" font-size="8">Lakehouse / Spark</text>
+
+                            <!-- Faixa Cross-Domain unindo os domínios -->
+                            <path d="M 70 178 Q 210 200, 350 178" fill="none" stroke="rgba(255, 144, 77, 0.4)" stroke-width="1.5" stroke-dasharray="3 3"/>
+                            <text x="210" y="194" text-anchor="middle" fill="#fca5a5" font-size="8" font-family="monospace">✨ SÍNTESE CROSS-DOMAIN ATIVADA</text>
+                        </svg>
+                    </div>
                 </div>
 
-                <div class="glass-card p-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-10 h-10 rounded-lg bg-miraCyan/15 text-miraCyan flex items-center justify-center mb-4">
-                        <i data-lucide="database" class="w-5 h-5"></i>
+                <!-- Painel da Direita: Snippet e Contrato Determinístico -->
+                <div class="md:col-span-5 space-y-3" data-aos="fade-left">
+                    <div class="code-box p-3">
+                        <div class="flex justify-between items-center text-[11px] text-slate-400 mb-1 border-b border-white/5 pb-1">
+                            <span class="font-mono text-miraOrange">Saída JSON Garantida</span>
+                            <span class="text-miraCyan text-[10px]">✔ Tipagem Estrita</span>
+                        </div>
+                        <pre class="text-[11px] text-slate-300 font-mono leading-relaxed"><code>{
+  <span class="text-miraCyan">"skill"</span>: <span class="text-miraOrange">"ia-engineer"</span>,
+  <span class="text-miraCyan">"confidence"</span>: <span class="text-miraBlue">0.98</span>,
+  <span class="text-miraCyan">"requires_rag"</span>: <span class="text-yellow-400">true</span>,
+  <span class="text-miraCyan">"cross_domain_skills"</span>: [
+    <span class="text-miraOrange">"devops"</span>, <span class="text-miraBlue">"data-engineer"</span>
+  ]
+}<span class="code-cursor"></span></code></pre>
                     </div>
-                    <h3 class="font-bold text-lg text-white mb-2">Memória Persistente Híbrida</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Sessão conversacional rápida no <strong>SQLite (LibSQL)</strong> e memória semântica vetorial no <strong>ChromaDB local (porta 8002)</strong>.
-                    </p>
-                </div>
 
-                <div class="glass-card p-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-10 h-10 rounded-lg bg-miraBlue/15 text-miraBlue flex items-center justify-center mb-4">
-                        <i data-lucide="mic" class="w-5 h-5"></i>
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-slate-400">
+                        <strong class="text-slate-200 block mb-1">🛡️ Guardrails Ativos:</strong>
+                        Filtros semânticos barram ataques de injeção de prompt e impedem vazamento de contexto da LLM.
                     </div>
-                    <h3 class="font-bold text-lg text-white mb-2">Voz Bidirecional Neural</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Transcrição de áudio via <strong>OpenAI Whisper (STT)</strong> e resposta falada em segundos com <strong>Microsoft Edge TTS</strong>.
-                    </p>
                 </div>
-            </div>
-
-            <!-- Box de Observabilidade -->
-            <div class="code-box p-4 flex items-center justify-between flex-wrap gap-4" data-aos="fade-up">
-                <div class="flex items-center gap-3">
-                    <i data-lucide="activity" class="w-5 h-5 text-miraOrange"></i>
-                    <span class="text-xs sm:text-sm text-slate-300">
-                        <strong>Stack:</strong> Node.js 20+ • TypeScript 5.4 Estrito • Grammy.js • ChromaDB 1.5 • Python 3.13
-                    </span>
-                </div>
-                <span class="text-xs font-mono text-miraCyan font-bold">
-                    Zero Lints • Zero Runtime Leaks
-                </span>
             </div>
         </div>
     </section>
 
     <!-- ==========================================
-         SLIDE 6: MÉTRICAS & VALIDAÇÃO BINÁRIA
+         SLIDE 4: FIGURA DA USINA RAG — EXPERT MODE & FUSION
+         ========================================== -->
+    <section id="slide-4" class="slide">
+        <div class="max-w-6xl w-full">
+            <div class="text-center mb-6" data-aos="fade-down">
+                <span class="text-xs font-mono uppercase tracking-widest text-miraBlue font-semibold block mb-1">Memória Semântica de Elite</span>
+                <h2 class="font-display text-3xl md:text-5xl font-extrabold text-gradient-blue">
+                    RAG Expert Mode & Fusion
+                </h2>
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-1">
+                    93 obras de referência indexadas. Síntese consultiva como consultor sênior em vez de cópia de trechos.
+                </p>
+            </div>
+
+            <!-- FIGURA 4: Diagrama da Usina RAG Expert Mode -->
+            <div class="glass-card p-6 mb-6" data-aos="fade-up">
+                <div class="w-full h-44 bg-black/40 rounded-xl border border-white/5 p-2 flex items-center justify-center relative overflow-hidden">
+                    <svg class="w-full h-full" viewBox="0 0 540 140">
+                        <!-- Entrada: Pergunta -->
+                        <rect x="10" y="50" width="100" height="40" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                        <text x="60" y="68" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">Pergunta</text>
+                        <text x="60" y="80" text-anchor="middle" fill="#94a3b8" font-size="8">do Usuário</text>
+
+                        <!-- Feixes Multi-Query Expansion -->
+                        <path d="M 110 70 L 160 40" stroke="#ff904d" stroke-width="1.5" class="anim-dash"/>
+                        <path d="M 110 70 L 160 70" stroke="#00ffa2" stroke-width="2" class="anim-dash"/>
+                        <path d="M 110 70 L 160 100" stroke="#38bdf8" stroke-width="1.5" class="anim-dash"/>
+
+                        <rect x="160" y="25" width="110" height="90" rx="8" fill="#121622" stroke="#ff904d" stroke-width="1.5"/>
+                        <text x="215" y="45" text-anchor="middle" fill="#ff904d" font-size="10" font-weight="bold">RAG Fusion</text>
+                        <text x="215" y="60" text-anchor="middle" fill="#cbd5e1" font-size="8">Multi-Query (3x)</text>
+                        <text x="215" y="75" text-anchor="middle" fill="#cbd5e1" font-size="8">Deduplicação</text>
+                        <text x="215" y="95" text-anchor="middle" fill="#00ffa2" font-size="8" font-family="monospace">Top 8 Chunks</text>
+
+                        <!-- Linha até o ChromaDB -->
+                        <line x1="270" y1="70" x2="310" y2="70" stroke="#ff904d" stroke-width="2"/>
+
+                        <!-- Cofre ChromaDB -->
+                        <rect x="310" y="30" width="100" height="80" rx="8" fill="#1e2230" stroke="#00ffa2" stroke-width="2"/>
+                        <text x="360" y="52" text-anchor="middle" fill="#00ffa2" font-size="11" font-weight="bold">ChromaDB</text>
+                        <text x="360" y="68" text-anchor="middle" fill="#f8fafc" font-size="9" font-family="monospace">93 OBRAS</text>
+                        <text x="360" y="82" text-anchor="middle" fill="#f8fafc" font-size="8" font-family="monospace">25.545 CHUNKS</text>
+                        <text x="360" y="96" text-anchor="middle" fill="#a855f7" font-size="8">OCR Bilíngue</text>
+
+                        <!-- Saída filtrada: Bloqueio de cópia vs Síntese consultiva -->
+                        <path d="M 410 50 L 450 35" stroke="#ef4444" stroke-width="2"/>
+                        <rect x="450" y="20" width="80" height="30" rx="6" fill="#3f1212" stroke="#ef4444" stroke-width="1"/>
+                        <text x="490" y="38" text-anchor="middle" fill="#fca5a5" font-size="8">❌ Cópia Cega</text>
+
+                        <path d="M 410 85 L 450 95" stroke="#00ffa2" stroke-width="2.5" class="anim-beam"/>
+                        <rect x="450" y="80" width="80" height="38" rx="6" fill="#0c2e22" stroke="#00ffa2" stroke-width="1.5"/>
+                        <text x="490" y="96" text-anchor="middle" fill="#00ffa2" font-size="9" font-weight="bold">✔ Parecer</text>
+                        <text x="490" y="108" text-anchor="middle" fill="#a7f3d0" font-size="7">Consultivo Sênior</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 3 Níveis de Cobertura -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 text-xs text-slate-300">
+                <div class="p-3 bg-white/[0.03] border-l-2 border-l-miraCyan rounded-r-xl">
+                    <strong class="text-miraCyan block mb-1">1. Full Coverage (Expert):</strong>
+                    Evidências atuam como raciocínio silencioso sem cópia literal.
+                </div>
+                <div class="p-3 bg-white/[0.03] border-l-2 border-l-yellow-400 rounded-r-xl">
+                    <strong class="text-yellow-400 block mb-1">2. Partial Coverage:</strong>
+                    Sintetiza o que tem e sinaliza a lacuna para Diego com transparência.
+                </div>
+                <div class="p-3 bg-white/[0.03] border-l-2 border-l-red-400 rounded-r-xl">
+                    <strong class="text-red-400 block mb-1">3. Blind Spot Detect:</strong>
+                    Registra o gap automaticamente via tool para futura expansão da biblioteca.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: FIGURA DA ARMADURA DO AGENTE — HARNESS & LOOP
+         ========================================== -->
+    <section id="slide-5" class="slide">
+        <div class="max-w-6xl w-full">
+            <div class="text-center mb-6" data-aos="fade-down">
+                <span class="text-xs font-mono uppercase tracking-widest text-miraOrange font-semibold block mb-1">Resiliência Operacional</span>
+                <h2 class="font-display text-3xl md:text-5xl font-extrabold text-gradient-orange">
+                    Harness & Loop Engineering
+                </h2>
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-1">
+                    O arcabouço protetor inspirado nos ensinamentos do Prof. Sandeco para contenção de falhas e loops.
+                </p>
+            </div>
+
+            <!-- FIGURA 5: A Armadura do Harness (The Agent Shield) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center mb-6">
+                <div class="md:col-span-6 glass-card p-4 flex items-center justify-center" data-aos="zoom-in">
+                    <div class="relative w-64 h-64">
+                        <svg class="w-full h-full" viewBox="0 0 240 240">
+                            <!-- Anel 3: Multimodalidade & Ferramentas -->
+                            <circle cx="120" cy="120" r="108" fill="none" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1.5" stroke-dasharray="6 4" class="anim-spin"/>
+                            
+                            <!-- Anel 2: Loop Detector & Memória Híbrida -->
+                            <circle cx="120" cy="120" r="82" fill="none" stroke="rgba(255, 144, 77, 0.4)" stroke-width="2" stroke-dasharray="10 8" class="anim-spin-rev"/>
+
+                            <!-- Anel 1: Escudo Protetor do Harness -->
+                            <circle cx="120" cy="120" r="56" fill="rgba(0, 255, 162, 0.15)" stroke="#00ffa2" stroke-width="2"/>
+
+                            <!-- Núcleo LLM -->
+                            <circle cx="120" cy="120" r="34" fill="#05050a" stroke="#ff904d" stroke-width="2" class="anim-pulse"/>
+                            <text x="120" y="118" text-anchor="middle" fill="#ff904d" font-size="9" font-weight="bold">LLM</text>
+                            <text x="120" y="128" text-anchor="middle" fill="#cbd5e1" font-size="7">CORE</text>
+
+                            <!-- Satélites ao redor -->
+                            <!-- Loop Detector -->
+                            <g transform="translate(120, 24)">
+                                <circle cx="0" cy="0" r="16" fill="#1e2230" stroke="#ff904d" stroke-width="1.5"/>
+                                <text x="0" y="4" text-anchor="middle" fill="#ff904d" font-size="10">🔁</text>
+                            </g>
+                            <!-- SQLite -->
+                            <g transform="translate(24, 120)">
+                                <circle cx="0" cy="0" r="16" fill="#1e2230" stroke="#00ffa2" stroke-width="1.5"/>
+                                <text x="0" y="4" text-anchor="middle" fill="#00ffa2" font-size="10">💾</text>
+                            </g>
+                            <!-- Voz Whisper/Edge -->
+                            <g transform="translate(216, 120)">
+                                <circle cx="0" cy="0" r="16" fill="#1e2230" stroke="#38bdf8" stroke-width="1.5"/>
+                                <text x="0" y="4" text-anchor="middle" fill="#38bdf8" font-size="10">🎙️</text>
+                            </g>
+                            <!-- MCP Tools -->
+                            <g transform="translate(120, 216)">
+                                <circle cx="0" cy="0" r="16" fill="#1e2230" stroke="#a855f7" stroke-width="1.5"/>
+                                <text x="0" y="4" text-anchor="middle" fill="#a855f7" font-size="10">⚙️</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 space-y-3" data-aos="fade-left">
+                    <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                        <div class="flex items-center gap-2.5 text-miraOrange mb-1">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            <h4 class="font-bold text-sm text-white">Loop Detector Heurístico</h4>
+                        </div>
+                        <p class="text-xs text-slate-300">
+                            Monitora ciclos repetitivos de chamadas de ferramentas e impede loops infinitos com contingência segura.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                        <div class="flex items-center gap-2.5 text-miraCyan mb-1">
+                            <i data-lucide="database" class="w-4 h-4"></i>
+                            <h4 class="font-bold text-sm text-white">Memória Híbrida Persistente</h4>
+                        </div>
+                        <p class="text-xs text-slate-300">
+                            Curto prazo ágil em SQLite (LibSQL) e longo prazo semântico em ChromaDB local (porta 8002).
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                        <div class="flex items-center gap-2.5 text-miraBlue mb-1">
+                            <i data-lucide="mic" class="w-4 h-4"></i>
+                            <h4 class="font-bold text-sm text-white">Voz Neural Bidirecional</h4>
+                        </div>
+                        <p class="text-xs text-slate-300">
+                            Entrada transcrita via OpenAI Whisper (STT) e retorno em áudio neural com Microsoft Edge TTS no Telegram.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 6: GAUGES CIRCULARES — MÉTRICAS DE PRODUÇÃO
          ========================================== -->
     <section id="slide-6" class="slide">
         <div class="max-w-6xl w-full">
-            <div class="text-center mb-10" data-aos="fade-down">
-                <span class="text-xs font-mono uppercase tracking-widest text-miraCyan font-semibold block mb-2">Validação Quantitativa</span>
-                <h2 class="font-display text-4xl md:text-5xl font-extrabold text-gradient-cyan">
-                    Métricas de Produção do DiegoClaw
+            <div class="text-center mb-8" data-aos="fade-down">
+                <span class="text-xs font-mono uppercase tracking-widest text-miraCyan font-semibold block mb-1">Validação Quantitativa</span>
+                <h2 class="font-display text-3xl md:text-5xl font-extrabold text-gradient-cyan">
+                    Métricas de Produção Auditadas
                 </h2>
-                <p class="text-slate-400 text-base max-w-2xl mx-auto mt-2">
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-1">
                     Resultados auditáveis atingidos sob a governança do Spec-Driven Development.
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
-                <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="text-4xl md:text-5xl font-black text-miraOrange font-display mb-1 metric-value" data-target="93">0</div>
-                    <span class="text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold block">Obras de IA Ingeridas</span>
+            <!-- FIGURA 6: 4 Gauges Circulares SVG com Progresso Animado -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <!-- Gauge 1 -->
+                <div class="glass-card p-5 text-center flex flex-col items-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative w-24 h-24 my-2">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="8"/>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#ff904d" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="0" stroke-linecap="round" class="anim-dash"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-2xl font-black text-miraOrange font-display metric-value" data-target="93">0</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] uppercase font-mono tracking-wider text-slate-300 font-semibold block">Obras de IA</span>
+                    <span class="text-[9px] text-miraOrange">100% Ingeridas</span>
                 </div>
 
-                <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="text-4xl md:text-5xl font-black text-miraCyan font-display mb-1 metric-value" data-target="25545">0</div>
-                    <span class="text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold block">Chunks no ChromaDB</span>
+                <!-- Gauge 2 -->
+                <div class="glass-card p-5 text-center flex flex-col items-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative w-24 h-24 my-2">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="8"/>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#00ffa2" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="0" stroke-linecap="round" class="anim-dash"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-lg font-black text-miraCyan font-display metric-value" data-target="25545">0</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] uppercase font-mono tracking-wider text-slate-300 font-semibold block">Chunks ChromaDB</span>
+                    <span class="text-[9px] text-miraCyan">OCR Bilíngue</span>
                 </div>
 
-                <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="text-4xl md:text-5xl font-black text-miraBlue font-display mb-1 metric-value" data-target="7">0</div>
-                    <span class="text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold block">Stories & Specs PASS</span>
+                <!-- Gauge 3 -->
+                <div class="glass-card p-5 text-center flex flex-col items-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative w-24 h-24 my-2">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="8"/>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#38bdf8" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="0" stroke-linecap="round" class="anim-dash"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-2xl font-black text-miraBlue font-display metric-value" data-target="7">0</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] uppercase font-mono tracking-wider text-slate-300 font-semibold block">Stories & Specs</span>
+                    <span class="text-[9px] text-miraBlue">100% PASS (Zero Fail)</span>
                 </div>
 
-                <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="text-4xl md:text-5xl font-black text-emerald-400 font-display mb-1">0</div>
-                    <span class="text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold block">Erros TypeScript</span>
+                <!-- Gauge 4 -->
+                <div class="glass-card p-5 text-center flex flex-col items-center" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="relative w-24 h-24 my-2">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="8"/>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#34d399" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="0" stroke-linecap="round"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-2xl font-black text-emerald-400 font-display">0</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] uppercase font-mono tracking-wider text-slate-300 font-semibold block">Erros TypeScript</span>
+                    <span class="text-[9px] text-emerald-400">tsc --noEmit</span>
                 </div>
             </div>
 
-            <div class="glass-card p-6" data-aos="fade-up">
-                <h3 class="font-bold text-white text-base mb-3 flex items-center gap-2">
-                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-                    <span>Status das Verificações Binárias (Stories 001 a 007)</span>
+            <!-- Esteira de Auditoria SDD -->
+            <div class="glass-card p-5" data-aos="fade-up">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Verificação Binária de Ciclo de Vida (.agent/stories/)</span>
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-slate-300">
-                    <div class="flex items-center gap-2">
-                        <span class="text-emerald-400">✔</span> Story 001: RAG Ingestion Pipeline (PASS)
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-emerald-400">✔</span> Story 002: MCP Agentic Workflows (PASS)
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-emerald-400">✔</span> Story 003: Dynamic File Ingestion & OCR (PASS)
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-emerald-400">✔</span> Story 004: Observability & Loop Detection (PASS)
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-emerald-400">✔</span> Story 005: Voice Bidirectional Interaction (PASS)
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-emerald-400">✔</span> Story 006: Cognitive Orchestration v2 (PASS)
-                    </div>
+                    <div class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Story 001: RAG Ingestion Pipeline (PASS)</div>
+                    <div class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Story 002: MCP Workflows & n8n (PASS)</div>
+                    <div class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Story 003: Dynamic Upload & OCR (PASS)</div>
+                    <div class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Story 004: Observability & Loop Detection (PASS)</div>
+                    <div class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Story 005: Voice Whisper & Edge TTS (PASS)</div>
+                    <div class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Story 006: Cognitive Cross-Domain v2 (PASS)</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ==========================================
-         SLIDE 7: CONCLUSÃO & AGRADECIMENTO
+         SLIDE 7: BRASÃO DE EXCELÊNCIA & CONCLUSÃO
          ========================================== -->
     <section id="slide-7" class="slide">
-        <div class="glass-card p-10 md:p-14 max-w-5xl w-full text-center relative overflow-hidden" data-aos="zoom-out">
+        <div class="glass-card p-8 md:p-12 max-w-5xl w-full text-center relative overflow-hidden" data-aos="zoom-out">
             <div class="absolute -top-32 -right-32 w-72 h-72 bg-miraOrange/15 rounded-full blur-[90px]"></div>
             <div class="absolute -bottom-32 -left-32 w-72 h-72 bg-miraCyan/10 rounded-full blur-[90px]"></div>
 
-            <i data-lucide="award" class="w-16 h-16 mx-auto text-miraOrange mb-6"></i>
+            <!-- FIGURA 7: Brasão Acadêmico UFG • SandeClaw • DiegoClaw -->
+            <div class="w-28 h-28 mx-auto my-2 flex items-center justify-center relative">
+                <svg class="w-full h-full" viewBox="0 0 120 120">
+                    <!-- Brasão com louros -->
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255, 144, 77, 0.4)" stroke-width="2" stroke-dasharray="6 4" class="anim-spin"/>
+                    <!-- Louros estilizados -->
+                    <path d="M 20 60 C 20 85, 40 100, 60 104 C 80 100, 100 85, 100 60 C 100 35, 80 20, 60 16 C 40 20, 20 35, 20 60 Z" fill="rgba(18, 22, 34, 0.85)" stroke="#ff904d" stroke-width="2"/>
+                    <circle cx="60" cy="60" r="32" fill="rgba(0, 255, 162, 0.1)" stroke="#00ffa2" stroke-width="1.5" class="anim-pulse"/>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-3xl">🎓</span>
+                </div>
+            </div>
 
-            <h2 class="font-display text-4xl md:text-6xl font-black mb-4 text-gradient-orange">
+            <h2 class="font-display text-3xl md:text-5xl font-black mb-3 text-gradient-orange">
                 A Inteligência Emerge do Harness e do SDD
             </h2>
-            <p class="text-lg md:text-xl text-slate-300 font-light mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-base md:text-lg text-slate-300 font-light mb-6 max-w-2xl mx-auto leading-relaxed">
                 Agentes confiáveis não nascem de modelos maiores, mas de restrições determinísticas, especificações binárias e arquitetura resiliente.
             </p>
 
-            <div class="glass-card p-6 max-w-2xl mx-auto mb-8 border-t-2 border-t-miraOrange text-left">
-                <p class="text-sm text-slate-300 italic leading-relaxed">
+            <div class="glass-card p-5 max-w-2xl mx-auto mb-6 border-t-2 border-t-miraOrange text-left">
+                <p class="text-xs sm:text-sm text-slate-300 italic leading-relaxed">
                     "O verdadeiro papel da Engenharia de Prompts e do Spec-Driven Development é transformar o caos probabilístico da IA generativa em software corporativo auditável, determinístico e seguro."
                 </p>
-                <span class="text-xs text-miraOrange font-mono mt-3 block font-semibold">— Diego William • Pós-Graduação UFG 2026</span>
+                <span class="text-xs text-miraOrange font-mono mt-2 block font-semibold">— Diego William • Pós-Graduação UFG 2026</span>
             </div>
 
-            <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-slate-400">
+            <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-slate-400">
                 <span class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10">🎓 Agradecimento especial ao Prof. Sandeco Macedo</span>
                 <span class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10">🏛️ Instituto de Informática (INF - UFG)</span>
             </div>
