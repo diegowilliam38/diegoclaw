@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho ePrompt T4 - DiegoClaw - Aluno Diego William</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 18mm 16mm 18mm 16mm;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --accent: #ea580c;
+            --accent-light: #fff7ed;
+            --accent-cyan: #0284c7;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --bg-card: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+            background: #ffffff;
+            line-height: 1.55;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Banner de aviso para o usuário no navegador (desaparece na impressão) */
+        .no-print-banner {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn-print {
+            background: #ea580c;
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+        .btn-print:hover {
+            background: #c2410c;
+        }
+
+        @media print {
+            .no-print-banner {
+                display: none !important;
+            }
+            body {
+                padding: 0;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* Cabeçalho Institucional */
+        .inst-header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .inst-title h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15pt;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+        .inst-title h3 {
+            font-size: 10.5pt;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .inst-title p {
+            font-size: 8.5pt;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .tag-t4 {
+            background: var(--accent-light);
+            color: var(--accent);
+            border: 1px solid rgba(234, 88, 12, 0.3);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Título do Projeto */
+        .project-hero {
+            margin-bottom: 18px;
+        }
+        .project-hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20pt;
+            color: var(--primary);
+            line-height: 1.15;
+            margin-bottom: 4px;
+        }
+        .project-hero .subtitle {
+            font-size: 10pt;
+            color: var(--text-muted);
+        }
+
+        /* Quadro de Identificação e Links */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+        }
+        .meta-item strong {
+            display: block;
+            font-size: 7.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .meta-item span, .meta-item a {
+            font-size: 9.5pt;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .meta-item a {
+            color: var(--accent-cyan);
+        }
+
+        /* Caixa de Destaque dos Links Oficiais */
+        .action-box {
+            background: #fff7ed;
+            border: 1.5px solid #fed7aa;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .action-link {
+            text-decoration: none;
+            color: #9a3412;
+            font-weight: 700;
+            font-size: 9pt;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Seções de Conteúdo */
+        h2.section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12pt;
+            color: var(--primary);
+            border-left: 3.5px solid var(--accent);
+            padding-left: 8px;
+            margin: 16px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        p {
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+
+        /* Tabela de Métricas e Diferenciais */
+        table.metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 16px 0;
+            font-size: 8.5pt;
+        }
+        table.metrics-table th {
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 6px 10px;
+            text-align: left;
+        }
+        table.metrics-table td {
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        table.metrics-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .badge-green {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 7.5pt;
+        }
+
+        /* Grid de Pilares Técnicos */
+        .pilares-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0 16px 0;
+        }
+        .pilar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px 12px;
+        }
+        .pilar-card h4 {
+            font-size: 9.5pt;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pilar-card p {
+            font-size: 8.5pt;
+            color: #334155;
+            margin-bottom: 0;
+            line-height: 1.45;
+        }
+
+        /* Diagrama ASCII / Bloco de Arquitetura */
+        .diagram-box {
+            background: #090d16;
+            color: #cbd5e1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5pt;
+            line-height: 1.35;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin: 10px 0 14px 0;
+            overflow-x: auto;
+            border: 1px solid #1e293b;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 7.5pt;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra Superior de Controle no Navegador (Desaparece ao Salvar como PDF) -->
+    <div class="no-print-banner">
+        <div>
+            <strong>📄 Gerador de PDF Oficial — Pós UFG (Aviso T4)</strong>
+            <span style="opacity: 0.8; margin-left: 10px;">DiegoClaw • Diego William</span>
+        </div>
+        <div>
+            <button class="btn-print" onclick="window.print()">🖨️ Salvar como PDF (Ctrl + P)</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Cabeçalho Institucional -->
+        <div class="inst-header">
+            <div class="inst-title">
+                <h2>UNIVERSIDADE FEDERAL DE GOIÁS — UFG</h2>
+                <h3>INSTITUTO DE INFORMÁTICA (INF)</h3>
+                <p>Pós-Graduação em Sistemas Inteligentes e Agentes de IA • Especialização Lato Sensu</p>
+            </div>
+            <div>
+                <span class="tag-t4">Submissão Oficial • Aviso T4</span>
+            </div>
+        </div>
+
+        <!-- Título do Projeto -->
+        <div class="project-hero">
+            <h1>DiegoClaw 🤖</h1>
+            <div class="subtitle">Agente Híbrido Autônomo com RAG Expert Mode, Harness Engineering e Spec-Driven Development</div>
+        </div>
+
+        <!-- Quadro de Metadados -->
+        <div class="meta-grid">
+            <div class="meta-item">
+                <strong>Pesquisador / Aluno</strong>
+                <span>Diego William</span>
+            </div>
+            <div class="meta-item">
+                <strong>Docente Titular</strong>
+                <span>Prof. Sandeco Macedo</span>
+            </div>
+            <div class="meta-item">
+                <strong>Disciplina</strong>
+                <span>Engenharia de Prompts & Spec-Driven Development (ePrompt)</span>
+            </div>
+            <div class="meta-item">
+                <strong>Data de Submissão</strong>
+                <span>Novembro de 2026 (Prazo: 17/11/2026 às 23:59)</span>
+            </div>
+            <div class="meta-item">
+                <strong>Repositório do Projeto</strong>
+                <a href="https://github.com/diegowilliam38/diegoclaw" target="_blank">github.com/diegowilliam38/diegoclaw</a>
+            </div>
+            <div class="meta-item">
+                <strong>Vídeo Demonstrativo (5 a 7 min)</strong>
+                <a href="#" target="_blank" id="video-link">[Link do Vídeo na Apresentação / YouTube / Drive]</a>
+            </div>
+        </div>
+
+        <!-- Links Oficiais Clicáveis -->
+        <div class="action-box">
+            <a href="https://github.com/diegowilliam38/diegoclaw" class="action-link" target="_blank">
+                💻 Código no GitHub
+            </a>
+            <span style="color: #fed7aa;">•</span>
+            <a href="#" class="action-link" target="_blank">
+                🎬 Assistir ao Vídeo Demonstrativo
+            </a>
+            <span style="color: #fed7aa;">•</span>
+            <a href="https://drive.google.com/drive/u/0/folders/1fD3D89d9TbcNSm1AByYagopCAUjtPexa" class="action-link" target="_blank">
+                📁 Pasta Oficial UFG Drive
+            </a>
+        </div>
+
+        <!-- Breve Descrição -->
+        <h2 class="section-title">1. Resumo Executivo e Breve Descrição</h2>
+        <p>
+            O <strong>DiegoClaw</strong> é um assistente pessoal e consultivo autônomo operado via mensageria Telegram com interação multimodal por voz bidirecional de baixa latência (Whisper STT + Microsoft Edge TTS). O projeto foi integralmente concebido para superar o paradigma empírico do <em>vibe coding</em>, substituindo tentativas estocásticas por um rigor de engenharia de software agêntica baseado em <strong>Spec-Driven Development (SDD)</strong> com <strong>Zero Trust Code Gate</strong>.
+        </p>
+        <p>
+            No aspecto cognitivo, o DiegoClaw herda a fundação do <strong>SandeClaw</strong> (criado pelo Prof. Sandeco) e a expande com roteamento <strong>Cross-Domain</strong> via JSON Schema estrito, 8 personas técnicas especializadas e a técnica <strong>RAG Expert Mode & Fusion</strong> — alimentada por um acervo de <strong>93 obras de referência</strong> com OCR bilíngue (25.545 chunks no ChromaDB) que atua como evidência de raciocínio crítico, proibindo cópias literais e emitindo avisos de obsolescência temporal (<em>Knowledge Currency</em>).
+        </p>
+
+        <!-- Tabela de Auditoria e Métricas -->
+        <h2 class="section-title">2. Métricas de Produção Auditadas</h2>
+        <table class="metrics-table">
+            <thead>
+                <tr>
+                    <th>Componente / Dimensão</th>
+                    <th>Implementação no DiegoClaw</th>
+                    <th>Status de Validação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Base de Conhecimento RAG</strong></td>
+                    <td>93 Obras Completas de Engenharia de IA, Harness, GraphRAG e Governança</td>
+                    <td><span class="badge-green">✔ 25.545 Chunks (OCR)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Governança SDD</strong></td>
+                    <td>7 Stories e 7 Specs atômicas numeradas em <code>.agent/stories/</code> com critérios binários</td>
+                    <td><span class="badge-green">✔ 100% PASS (Zero Fail)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Decisões de Arquitetura</strong></td>
+                    <td>6 ADRs imutáveis documentando ChromaDB, RAG Expert Mode e Submissão UFG</td>
+                    <td><span class="badge-green">✔ ADR-001 a ADR-006</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Integridade do Código</strong></td>
+                    <td>TypeScript 5.4 com checagem estrita de tipos em produção (<code>tsc --noEmit</code>)</td>
+                    <td><span class="badge-green">✔ Zero Erros (0 bugs)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Cognição & Roteamento</strong></td>
+                    <td>SkillRouter V2 herdado do SandeClaw com suporte a Cross-Domain e JSON Schema</td>
+                    <td><span class="badge-green">✔ 8 Personas Ativas</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Multimodalidade & Voz</strong></td>
+                    <td>Transcrição via OpenAI Whisper (STT) + Resposta em áudio neural com Edge TTS</td>
+                    <td><span class="badge-green">✔ Bidirecional Ativo</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Diagrama de Arquitetura -->
+        <h2 class="section-title">3. Arquitetura do Sistema e Linhagem SandeClaw</h2>
+        <div class="diagram-box">
+  [ Telegram User (Texto ou Áudio) ]
+                 │
+                 ▼ (Whisper STT)
+  ┌────────────────────────────────────────────────────────┐
+  │  SkillRouter.ts (Linhagem: SandeClaw ➔ DiegoClaw V2)   │
+  │  Classificação Metacognitiva Determinística (JSON)     │
+  └───────────────────────────────┬────────────────────────┘
+                                  │
+      ┌───────────────────────────┼───────────────────────────┐
+      ▼                           ▼                           ▼
+┌──────────────┐          ┌──────────────┐          ┌──────────────────────┐
+│  ia-engineer │          │    devops    │          │    data-engineer     │
+│ (LangGraph)  │          │ (Docker/CI)  │          │  (Lakehouse/Spark)   │
+└──────┬───────┘          └──────┬───────┘          └──────────┬───────────┘
+       │                         │                             │
+       └─────────────────────────┼─────────────────────────────┘
+                                 │ (Cross-Domain Combinado)
+                                 ▼
+         ┌─────────────────────────────────────────────────┐
+         │ RAG Expert Mode (ChromaDB 8002 • 25.545 chunks) │
+         │ Multi-Query (3x) ➔ Evidências de Raciocínio     │
+         └───────────────────────┬─────────────────────────┘
+                                 │
+                                 ▼
+                     ┌───────────────────────┐
+                     │ Parecer Consultivo    │ ──► [ Edge TTS Áudio ]
+                     │ Sênior (Sem Cópia)    │ ──► [ Resposta no Telegram ]
+                     └───────────────────────┘
+        </div>
+
+        <!-- Pilares Técnicos -->
+        <h2 class="section-title">4. Fundamentação Teórica e Aplicação na Disciplina</h2>
+        <div class="pilares-grid">
+            <div class="pilar-card">
+                <h4>🛡️ Spec-Driven Development (SDD)</h4>
+                <p>
+                    Adoção inegociável da trava <em>Zero Trust Code Gate</em>: nenhuma modificação em <code>src/</code> é permitida sem uma especificação técnica atômica com matriz de verificação binária (Pass/Fail) e registro em ADR.
+                </p>
+            </div>
+            <div class="pilar-card">
+                <h4>🧠 Roteador Cognitivo & ePrompt</h4>
+                <p>
+                    O <code>SkillRouter.ts</code> rejeita respostas abertas e força a LLM a responder em JSON Schema estrito, isolando o contexto e permitindo a fusão de especialidades técnicas quando a dúvida cruza áreas.
+                </p>
+            </div>
+            <div class="pilar-card">
+                <h4>📚 RAG Expert Mode & Fusion</h4>
+                <p>
+                    Multi-query expansion desdobra cada consulta em 3 variantes semânticas. O modelo trata os chunks recuperados como evidências silenciosas, gerando orientações práticas e citando ressalvas de <em>Knowledge Currency</em>.
+                </p>
+            </div>
+            <div class="pilar-card">
+                <h4>🔁 Harness & Loop Engineering</h4>
+                <p>
+                    Implementação de detector heurístico de loops infinitos em chamadas de ferramentas (MCP/Tools), isolamento de memória de curto prazo (SQLite) e proteção ativa contra ataques de <em>Prompt Injection</em>.
+                </p>
+            </div>
+        </div>
+
+        <!-- Conclusão -->
+        <h2 class="section-title">5. Considerações Finais</h2>
+        <p>
+            O DiegoClaw comprova que a verdadeira inteligência de um agente autônomo não advém da força bruta de um modelo fundacional, mas sim da solidez do <strong>Harness</strong> que o governa e do rigor metodológico do <strong>Spec-Driven Development</strong>. Este projeto reflete a excelência do aprendizado proporcionado pelo Prof. Sandeco Macedo na Universidade Federal de Goiás, constituindo uma solução completa, robusta e pronta para produção corporativa.
+        </p>
+
+        <!-- Rodapé Oficial -->
+        <div class="footer">
+            <span>Universidade Federal de Goiás • Instituto de Informática (INF - UFG)</span>
+            <span>Pós-Graduação em Sistemas Inteligentes e Agentes de IA • 2026</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
