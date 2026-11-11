@@ -2,6 +2,11 @@ import chromadb
 import sys
 import json
 import os
+from dotenv import load_dotenv
+
+# Carregar variaveis do .env
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+load_dotenv(env_path)
 from openai import OpenAI
 
 # Configuração
@@ -12,9 +17,16 @@ from chromadb import HttpClient
 import os
 os.environ['CHROMA_TELEMETRY'] = 'false'
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "chroma_db")
-client = HttpClient(host='localhost', port=8002)
-collection = client.get_or_create_collection(name="diegoclaw_knowledge")
+DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "chroma_db"))
+
+# Conexao resiliente: tenta HTTP (porta 8002); se offline, conecta direto localmente (PersistentClient)
+try:
+    client = HttpClient(host='localhost', port=8002)
+    collection = client.get_or_create_collection(name="diegoclaw_knowledge")
+except Exception as e:
+    # Fallback transparente para banco local sem necessidade de servidor HTTP
+    client = chromadb.PersistentClient(path=DB_PATH)
+    collection = client.get_or_create_collection(name="diegoclaw_knowledge")
 
 openai_client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
