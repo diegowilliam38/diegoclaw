@@ -1,16 +1,16 @@
 @echo off
 title DiegoClaw — ChromaDB Server
+cd /d "%~dp0"
 echo ============================================================
-echo  DiegoClaw — Servidor ChromaDB v1.5
-echo  Porta: http://localhost:8000
-echo  Banco: ./chroma_db
+echo   DiegoClaw — Servidor ChromaDB v1.5 (Nativo Local)
+echo   Porta: http://localhost:8002
+echo   Banco: ./chroma_db (25.545 chunks)
 echo ============================================================
 echo.
-echo  Deixe esta janela ABERTA enquanto o bot estiver rodando.
-echo  Para fechar: Ctrl+C
+echo   Deixe esta janela ABERTA enquanto o bot estiver rodando.
+echo   Para fechar: Ctrl+C ou feche a janela.
 echo.
 
-echo  Aguardando Docker Desktop...
-docker run -p 8002:8000 -v "%cd%/chroma_db:/chroma/chroma" chromadb/chroma
+python chroma_server.py
 
 pause
