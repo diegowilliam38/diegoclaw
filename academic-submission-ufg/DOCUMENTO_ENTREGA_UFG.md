@@ -19,7 +19,7 @@
   - **Diego William** (Desenvolvedor e Pesquisador Principal)
 - **Links Institucionais e de Avaliação:**
   - **Repositório GitHub:** `https://github.com/diegowilliam38/diegoclaw`
-  - **Vídeo Demonstrativo (5 a 7 min):** `[INSERIR_LINK_DO_VIDEO_AQUI]`
+  - **Vídeo Demonstrativo (6m57s):** `https://youtu.be/32d4iEuVTHU`
   - **Pasta do Trabalho no Google Drive:** `https://drive.google.com/drive/u/3/folders/1fD3D89d9TbcNSm1AByYagopCAUjtPexa`
 
 ---

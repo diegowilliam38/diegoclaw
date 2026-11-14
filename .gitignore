@@ -37,3 +37,8 @@ npm-debug.log*
 
 # Agent memory (runtime only)
 .agent/memory/
+
+# Media / Recordings (Keep off git)
+*.mp4
+*.mov
+*.mkv
